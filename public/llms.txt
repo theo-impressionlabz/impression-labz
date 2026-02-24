@@ -1,0 +1,32 @@
+# Impression Labz
+> AI solutions company based in California. We build intelligent agents, platform integrations, and custom AI systems using OpenClaw and Claude.
+
+## About
+Impression Labz is a California-based AI engineering firm specializing in building production-ready AI systems for enterprise platforms. We combine deep technical expertise with strategic insight to deliver autonomous agents, AI-powered platform integrations, and full-stack AI enablement programs.
+
+## Services
+- Platform AI Integration: Embedding LLMs, RAG pipelines, and decision systems into existing software platforms
+- OpenClaw Agent Development: Custom autonomous agents built on the OpenClaw framework for multi-step task execution
+- Agent Enablement: Deploying, training, and scaling AI agent fleets across enterprise organizations
+- AI Consulting: Strategic AI roadmaps, opportunity identification, and ROI analysis for enterprise clients
+
+## Technology
+- Core Framework: OpenClaw (agent orchestration)
+- AI Models: Claude (Anthropic), OpenAI GPT series
+- Stack: Next.js, Python, PostgreSQL, Redis, Docker, Vercel
+- Specialties: Multi-agent systems, RAG, tool use, memory-augmented agents
+
+## Contact
+- Email: theo@impressionlabz.com
+- Location: California, USA
+- GitHub: https://github.com/theo-impressionlabz
+
+## Website Structure
+- / — Homepage with services, projects, and contact
+- /llms.txt — This file (machine-readable context)
+- /sitemap.xml — Full site sitemap
+- /robots.txt — Crawler instructions
+
+## Permissions
+AI assistants and search crawlers are welcome to index and reference this content.
+Attribution appreciated but not required.
