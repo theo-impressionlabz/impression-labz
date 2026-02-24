@@ -61,7 +61,7 @@ function Nav() {
   }, []);
   return (
     <nav aria-label="Main navigation" className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "glass border-b border-[rgba(0,212,255,0.1)] py-3" : "py-5"}`}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg gradient-border flex items-center justify-center text-xs font-bold text-[#00d4ff] font-space">IL</div>
           <span className="font-space font-semibold tracking-tight">Impression <span className="text-[#00d4ff]">Labz</span></span>
@@ -111,7 +111,7 @@ function Hero() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(124,58,237,0.1) 0%, rgba(0,212,255,0.05) 45%, transparent 70%)" }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-28 pb-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 text-center pt-28 pb-16">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-medium text-slate-400 mb-8 border border-[rgba(0,212,255,0.2)]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
@@ -265,7 +265,7 @@ function Products() {
   const p = products[active];
 
   return (
-    <section id="products" aria-label="Products" className="py-28 max-w-7xl mx-auto px-6">
+    <section id="products" aria-label="Products" className="py-16 md:py-28 max-w-7xl mx-auto px-4 md:px-6 overflow-x-hidden">
       <Reveal>
         <div className="text-center mb-14">
           <p className="text-[#00d4ff] text-xs font-semibold tracking-widest uppercase mb-4">The Product Suite</p>
@@ -301,7 +301,7 @@ function Products() {
           className="glass rounded-3xl p-8 md:p-12 gradient-border"
           style={{ borderColor: p.color }}
         >
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-start">
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
@@ -398,7 +398,7 @@ function Solutions() {
             </h2>
           </div>
         </Reveal>
-        <div className="grid md:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {roles.map((r, i) => (
             <button key={r.role} onClick={() => setActive(i)}
               className={`px-4 py-4 rounded-2xl text-left transition-all ${active === i ? "glass border border-[rgba(124,58,237,0.4)] bg-[rgba(124,58,237,0.1)]" : "glass border border-transparent hover:border-[rgba(255,255,255,0.08)]"}`}>
@@ -411,7 +411,7 @@ function Solutions() {
           <motion.div key={active}
             initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
             className="glass rounded-3xl p-8 md:p-10">
-            <div className="grid md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
               <div>
                 <div className="text-xs text-slate-600 uppercase tracking-widest mb-3">The Problem</div>
                 <p className="text-slate-300 text-lg leading-relaxed mb-8">"{r.problem}"</p>
@@ -473,7 +473,7 @@ const cases = [
 
 function CaseStudies() {
   return (
-    <section id="work" aria-label="Case studies" className="py-24 max-w-7xl mx-auto px-6">
+    <section id="work" aria-label="Case studies" className="py-16 md:py-24 max-w-7xl mx-auto px-4 md:px-6">
       <Reveal>
         <div className="text-center mb-14">
           <p className="text-[#10b981] text-xs font-semibold tracking-widest uppercase mb-4">Proof of Work</p>
@@ -483,7 +483,7 @@ function CaseStudies() {
           <p className="text-slate-400 mt-3 max-w-lg mx-auto">We don't do pilots that never go to production. Every engagement ships.</p>
         </div>
       </Reveal>
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {cases.map((c, i) => (
           <Reveal key={c.company} delay={i * 0.1}>
             <article className="glass rounded-2xl overflow-hidden hover-lift h-full flex flex-col">
@@ -578,7 +578,7 @@ function Pricing() {
     <section id="pricing" aria-label="Pricing" className="py-24 relative">
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(0,212,255,0.05) 0%, transparent 60%)" }} />
-      <div className="max-w-6xl mx-auto px-6 relative">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 relative">
         <Reveal>
           <div className="text-center mb-14">
             <p className="text-[#f59e0b] text-xs font-semibold tracking-widest uppercase mb-4">Transparent Pricing</p>
@@ -588,7 +588,7 @@ function Pricing() {
             <p className="text-slate-400 mt-3 max-w-lg mx-auto">No retainers for retainers' sake. Every tier is tied to deliverables.</p>
           </div>
         </Reveal>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan, i) => (
             <Reveal key={plan.name} delay={i * 0.1}>
               <div className={`rounded-3xl p-8 flex flex-col h-full relative ${plan.highlight ? "gradient-border" : "glass"}`}
@@ -686,7 +686,7 @@ function GetStarted() {
     <section id="get-started" aria-label="Get started with Impression Labz" className="py-24 relative">
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 100%, rgba(0,212,255,0.07) 0%, transparent 60%)" }} />
-      <div className="max-w-2xl mx-auto px-6 relative">
+      <div className="max-w-2xl mx-auto px-4 md:px-6 relative">
         <Reveal>
           <div className="text-center mb-12">
             <p className="text-[#00d4ff] text-xs font-semibold tracking-widest uppercase mb-4">Let's Build Together</p>
@@ -796,7 +796,7 @@ const trust = [
 function TrustBar() {
   return (
     <div className="border-y border-[rgba(0,212,255,0.06)] py-6">
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-3 md:grid-cols-6 gap-4">
+      <div className="max-w-5xl mx-auto px-4 md:px-6 grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4">
         {trust.map(t => (
           <div key={t.text} className="flex flex-col items-center gap-2 text-center">
             <t.icon size={18} className="text-[#00d4ff] opacity-70" />
@@ -812,8 +812,8 @@ function TrustBar() {
 function Footer() {
   return (
     <footer role="contentinfo" className="border-t border-[rgba(0,212,255,0.06)] pt-16 pb-10">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-10 mb-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-7 h-7 rounded-lg gradient-border flex items-center justify-center text-xs font-bold text-[#00d4ff]">IL</div>

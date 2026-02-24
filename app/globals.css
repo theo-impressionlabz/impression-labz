@@ -18,10 +18,24 @@ body {
   color: #e2e8f0;
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-space), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Prevent any child from blowing out horizontal layout */
+* { max-width: 100%; }
+img, video, canvas, svg { display: block; max-width: 100%; }
+
+/* Consistent safe-area padding on mobile */
+@supports (padding: max(0px)) {
+  .px-safe {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
 }
 
 /* Grid background */
