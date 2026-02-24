@@ -298,20 +298,21 @@ function Products() {
 
         {/* Tabs */}
         <Reveal delay={0.1}>
-          <div className="flex gap-2 flex-wrap mb-10"
-            style={{ borderBottom: "1px solid var(--border)", paddingBottom: "0" }}>
+          {/* Mobile: 2×2 grid; Desktop: tab row */}
+          <div className="grid grid-cols-2 md:flex md:flex-wrap mb-8 md:mb-10 gap-2 md:gap-0"
+            style={{ borderBottom: "1px solid var(--border)" }}>
             {products.map((prod, i) => (
               <button key={prod.name} onClick={() => setActive(i)}
-                className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-all relative"
+                className="flex items-center justify-center md:justify-start gap-2 px-4 py-4 md:px-5 md:py-3 text-sm font-medium transition-all relative rounded-xl md:rounded-none"
                 style={{
                   color: active === i ? "var(--text)" : "var(--text-muted)",
-                  borderBottom: active === i ? "2px solid var(--accent)" : "2px solid transparent",
-                  marginBottom: "-1px",
+                  background: active === i ? "rgba(212,149,106,0.08)" : "transparent",
+                  border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "var(--border)"}`,
                 }}>
-                <prod.icon size={14} style={{ color: active === i ? "var(--accent)" : "inherit" }} />
-                {prod.name}
+                <prod.icon size={15} style={{ color: active === i ? "var(--accent)" : "inherit", flexShrink: 0 }} />
+                <span className="truncate">{prod.name}</span>
                 {prod.badge && (
-                  <span className="text-xs px-1.5 py-0.5 rounded text-[10px] font-semibold"
+                  <span className="hidden sm:inline text-[10px] px-1.5 py-0.5 rounded font-semibold flex-shrink-0"
                     style={{ background: "rgba(212,149,106,0.15)", color: "var(--accent)" }}>
                     {prod.badge}
                   </span>
@@ -351,14 +352,14 @@ function Products() {
                   {p.metric}
                 </div>
 
-                <div className="flex gap-3 flex-wrap">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <a href="#get-started"
-                    className="flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm transition-all hover:opacity-90"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base transition-all hover:opacity-90"
                     style={{ background: "var(--accent)", color: "#0e0e0e" }}>
-                    Request Demo <ArrowRight size={14} />
+                    Request Demo <ArrowRight size={16} />
                   </a>
                   <a href="#pricing"
-                    className="flex items-center gap-2 px-6 py-3.5 rounded-full font-semibold text-sm transition-all"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-base transition-all"
                     style={{ border: "1px solid var(--border)", color: "var(--text-muted)" }}>
                     See Pricing
                   </a>
