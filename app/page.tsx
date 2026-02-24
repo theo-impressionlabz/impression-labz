@@ -73,7 +73,7 @@ function Nav() {
         paddingTop: scrolled ? "14px" : "20px",
         paddingBottom: scrolled ? "14px" : "20px",
       }}>
-      <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-8 md:px-14 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
             style={{ background: "var(--accent)", color: "#0e0e0e" }}>
@@ -153,7 +153,7 @@ function Hero() {
           background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,149,106,0.06) 0%, transparent 70%)"
         }} />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-5 md:px-8 text-center pt-36 pb-24">
+      <div className="relative z-10 max-w-4xl mx-auto px-8 md:px-14 text-center pt-36 pb-24">
 
         {/* Badge */}
         <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
@@ -207,7 +207,7 @@ function Hero() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {metrics.map(m => (
-            <div key={m.label} className="card p-6 text-left">
+            <div key={m.label} className="card p-8 text-left">
               <div className="text-4xl font-space font-black mb-2" style={{ color: "var(--accent)" }}>{m.value}</div>
               <div className="text-xs leading-snug" style={{ color: "var(--text-dim)" }}>{m.label}</div>
             </div>
@@ -282,7 +282,7 @@ function Products() {
   const p = products[active];
   return (
     <section id="products" aria-label="Products" className="py-32 md:py-40">
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
+      <div className="max-w-5xl mx-auto px-8 md:px-14">
         <Reveal>
           <div className="mb-16">
             <Label>The Product Suite</Label>
@@ -327,7 +327,7 @@ function Products() {
           <motion.div key={active}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35 }}
-            className="card-lg p-8 md:p-12">
+            className="card-lg p-10 md:p-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
               {/* Left */}
               <div>
@@ -404,7 +404,7 @@ function Solutions() {
   return (
     <section id="solutions" aria-label="Solutions" className="py-32 md:py-40"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
+      <div className="max-w-5xl mx-auto px-8 md:px-14">
         <Reveal>
           <div className="mb-16">
             <Label>Built for Decision-Makers</Label>
@@ -420,7 +420,7 @@ function Solutions() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
           {roles.map((role, i) => (
             <button key={role.role} onClick={() => setActive(i)}
-              className="p-5 md:p-6 rounded-2xl text-left transition-all"
+              className="p-6 md:p-8 rounded-2xl text-left transition-all"
               style={{
                 background: active === i ? "rgba(212,149,106,0.08)" : "var(--surface)",
                 border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "var(--border)"}`,
@@ -434,7 +434,7 @@ function Solutions() {
         <AnimatePresence mode="wait">
           <motion.div key={active}
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }}
-            className="card-lg p-8 md:p-12">
+            className="card-lg p-10 md:p-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
               <div>
                 <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>The Problem</p>
@@ -448,7 +448,7 @@ function Solutions() {
                   {r.recs.map(name => {
                     const prod = products.find(p => p.name === name)!;
                     return (
-                      <div key={name} className="flex items-center gap-4 p-5 rounded-2xl transition-all card-hover"
+                      <div key={name} className="flex items-center gap-4 p-5 md:p-6 rounded-2xl transition-all card-hover"
                         style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}>
                         <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                           style={{ background: "rgba(212,149,106,0.1)" }}>
@@ -503,7 +503,7 @@ function CaseStudies() {
   return (
     <section id="work" aria-label="Case studies" className="py-32 md:py-40"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
+      <div className="max-w-5xl mx-auto px-8 md:px-14">
         <Reveal>
           <div className="mb-16">
             <Label>Proof of Work</Label>
@@ -516,10 +516,10 @@ function CaseStudies() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {cases.map((c, i) => (
             <Reveal key={c.company} delay={i * 0.08}>
-              <article className="card p-8 md:p-10 flex flex-col h-full card-hover hover-lift">
+              <article className="card p-10 md:p-12 flex flex-col h-full card-hover hover-lift">
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-xs font-semibold px-3 py-1.5 rounded-full"
                     style={{ background: "var(--surface-2)", color: "var(--text-muted)", border: "1px solid var(--border)" }}>
@@ -566,7 +566,7 @@ const trust = [
 function TrustBar() {
   return (
     <div className="py-10" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-      <div className="max-w-5xl mx-auto px-5 md:px-8 grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
+      <div className="max-w-5xl mx-auto px-8 md:px-14 grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
         {trust.map(t => (
           <div key={t.text} className="flex flex-col items-center gap-3 text-center">
             <t.icon size={18} style={{ color: "var(--accent)", opacity: 0.7 }} />
@@ -604,7 +604,7 @@ function Pricing() {
   return (
     <section id="pricing" aria-label="Pricing" className="py-32 md:py-40"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
+      <div className="max-w-5xl mx-auto px-8 md:px-14">
         <Reveal>
           <div className="mb-16">
             <Label>Transparent Pricing</Label>
@@ -617,7 +617,7 @@ function Pricing() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {plans.map((plan, i) => (
             <Reveal key={plan.name} delay={i * 0.08}>
               <div className="flex flex-col h-full relative"
@@ -698,7 +698,7 @@ function GetStarted() {
   return (
     <section id="get-started" aria-label="Get started" className="py-32 md:py-40"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-xl mx-auto px-5 md:px-8">
+      <div className="max-w-xl mx-auto px-8 md:px-12">
         <Reveal>
           <div className="mb-14">
             <Label>Let's Build Together</Label>
@@ -712,7 +712,7 @@ function GetStarted() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="card-lg p-8 md:p-12">
+          <div className="card-lg p-10 md:p-16">
             {submitted ? (
               <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
                 <div className="text-5xl mb-6">🤖</div>
@@ -821,7 +821,7 @@ function GetStarted() {
 function Footer() {
   return (
     <footer role="contentinfo" className="pt-20 pb-12" style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-6xl mx-auto px-5 md:px-8">
+      <div className="max-w-5xl mx-auto px-8 md:px-14">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 mb-16">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-5">

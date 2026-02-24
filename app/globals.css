@@ -39,13 +39,13 @@ p { line-height: 1.8; color: var(--text-muted); }
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 20px;
 }
 
 .card-lg {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 24px;
+  border-radius: 28px;
 }
 
 /* Subtle inner glow on card hover */
