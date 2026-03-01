@@ -1,21 +1,40 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ───────────────────────────────────────────────────────── */
 :root {
-  --bg: #0e0e0e;
-  --surface: #1a1a1a;
-  --surface-2: #222222;
-  --border: rgba(255, 255, 255, 0.08);
-  --text: #ede9dc;
-  --text-muted: #8a8578;
-  --text-dim: #4a4742;
-  --accent: #d4956a;
-  --accent-hover: #e0a87c;
+  /* Backgrounds */
+  --bg: #050510;
+  --surface: #0a0a1e;
+  --surface-2: #0f0f28;
+  --surface-3: #15153a;
+
+  /* Borders */
+  --border: rgba(99, 102, 241, 0.15);
+  --border-bright: rgba(99, 102, 241, 0.45);
+
+  /* Text */
+  --text: #e8eaf6;
+  --text-muted: #6e7a9e;
+  --text-dim: #363d5c;
+
+  /* Accent Palette */
+  --accent: #6366f1;        /* Indigo — primary CTAs */
+  --accent-hover: #818cf8;  /* Lighter indigo */
+  --cyan: #22d3ee;          /* Cyan — metrics, highlights */
+  --violet: #a78bfa;        /* Violet — gradient mid */
+  --green: #34d399;         /* Emerald — live/success */
+
+  /* Glow */
+  --glow: rgba(99, 102, 241, 0.22);
+  --glow-sm: rgba(99, 102, 241, 0.1);
+  --glow-cyan: rgba(34, 211, 238, 0.15);
 }
 
+/* ─── Reset ───────────────────────────────────────────────────────────────── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
+/* ─── Base ────────────────────────────────────────────────────────────────── */
 body {
   background: var(--bg);
   color: var(--text);
@@ -35,7 +54,15 @@ h1, h2, h3, h4, h5 {
 
 p { line-height: 1.8; color: var(--text-muted); }
 
-/* Surface cards */
+/* ─── Grid Background ─────────────────────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ─── Cards ───────────────────────────────────────────────────────────────── */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -48,42 +75,60 @@ p { line-height: 1.8; color: var(--text-muted); }
   border-radius: 24px;
 }
 
-/* Subtle inner glow on card hover */
 .card-hover {
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
+
 .card-hover:hover {
-  border-color: rgba(212, 149, 106, 0.25);
-  background: #1e1d1b;
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.08), 0 8px 32px rgba(0, 0, 0, 0.4);
+  background: #0d0d24;
 }
 
-/* Accent text */
+/* ─── Text Utilities ──────────────────────────────────────────────────────── */
 .accent { color: var(--accent); }
+.accent-cyan { color: var(--cyan); }
 
-/* Accent gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #d4956a 0%, #e8b4a0 50%, #c47a52 100%);
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #22d3ee 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Subtle top border accent */
-.accent-top {
-  border-top: 1px solid rgba(212, 149, 106, 0.35);
+/* ─── Borders ─────────────────────────────────────────────────────────────── */
+.accent-top { border-top: 1px solid rgba(99, 102, 241, 0.25); }
+
+/* ─── Ghost Button ────────────────────────────────────────────────────────── */
+.btn-ghost {
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-ghost:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  color: var(--text);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.08);
 }
 
-/* Scrollbar */
+/* ─── Interactions ────────────────────────────────────────────────────────── */
+.hover-lift { transition: transform 0.25s ease; }
+.hover-lift:hover { transform: translateY(-4px); }
+
+.divider { height: 1px; background: var(--border); }
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.5); }
 
-/* Typewriter cursor */
+/* ─── Typewriter Cursor ───────────────────────────────────────────────────── */
 .cursor {
   display: inline-block;
   width: 2px;
   height: 0.85em;
-  background: var(--accent);
+  background: var(--cyan);
   margin-left: 3px;
   vertical-align: text-bottom;
   animation: blink 1s step-end infinite;
@@ -94,14 +139,40 @@ p { line-height: 1.8; color: var(--text-muted); }
   50% { opacity: 0; }
 }
 
-/* Fade up */
-.hover-lift {
-  transition: transform 0.25s ease;
+/* ─── Floating Orb Animations ─────────────────────────────────────────────── */
+@keyframes float-orb {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.06); }
+  66% { transform: translate(-25px, 20px) scale(0.95); }
 }
-.hover-lift:hover { transform: translateY(-3px); }
 
-/* Divider */
-.divider {
-  height: 1px;
-  background: var(--border);
+@keyframes float-orb-alt {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(-35px, 25px) scale(1.04); }
+  66% { transform: translate(30px, -15px) scale(0.97); }
 }
+
+.orb-1 { animation: float-orb 18s ease-in-out infinite; }
+.orb-2 { animation: float-orb-alt 22s ease-in-out infinite; }
+.orb-3 { animation: float-orb 28s ease-in-out infinite 6s; }
+
+/* ─── Live Dot Pulse ──────────────────────────────────────────────────────── */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 5px rgba(52, 211, 153, 0); }
+}
+.dot-pulse { animation: dot-pulse 2s ease-in-out infinite; }
+
+/* ─── Form Inputs ─────────────────────────────────────────────────────────── */
+.form-input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-input:focus {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+.form-input::placeholder { color: var(--text-dim); }
