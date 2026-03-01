@@ -9,7 +9,8 @@ import {
   Database, Globe, Play, Calendar, Users, ArrowUpRight
 } from "lucide-react";
 
-// ─── Utils ────────────────────────────────────────────────────────────────────
+// ─── Utilities ────────────────────────────────────────────────────────────────
+
 function Reveal({ children, delay = 0, className = "" }: {
   children: React.ReactNode; delay?: number; className?: string;
 }) {
@@ -46,17 +47,22 @@ function Typewriter({ words }: { words: string[] }) {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-5"
-      style={{ color: "var(--accent)" }}>
-      {children}
-    </p>
+    <div className="flex items-center gap-2.5 mb-5">
+      <span className="w-0.5 h-4 rounded-full" style={{ background: "var(--cyan)", opacity: 0.9 }} />
+      <p className="text-xs font-semibold tracking-[0.15em] uppercase font-mono"
+        style={{ color: "var(--accent)" }}>
+        {children}
+      </p>
+    </div>
   );
 }
 
 // ─── Nav ──────────────────────────────────────────────────────────────────────
+
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", fn);
@@ -67,16 +73,22 @@ function Nav() {
     <nav aria-label="Main navigation"
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(14,14,14,0.92)" : "transparent",
-        backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+        background: scrolled ? "rgba(5,5,16,0.94)" : "transparent",
+        backdropFilter: scrolled ? "blur(24px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(99,102,241,0.12)" : "none",
         paddingTop: scrolled ? "14px" : "20px",
         paddingBottom: scrolled ? "14px" : "20px",
       }}>
       <div className="max-w-5xl mx-auto px-8 md:px-14 flex items-center justify-between">
+
+        {/* Logo */}
         <a href="#" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
-            style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+            style={{
+              background: "linear-gradient(135deg, #6366f1, #818cf8)",
+              boxShadow: "0 0 16px rgba(99,102,241,0.35)",
+              color: "#fff",
+            }}>
             IL
           </div>
           <span className="font-space font-semibold" style={{ color: "var(--text)" }}>
@@ -84,6 +96,7 @@ function Nav() {
           </span>
         </a>
 
+        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8 text-sm" style={{ color: "var(--text-muted)" }}>
           {["Products", "Solutions", "Pricing", "About"].map(item => (
             <a key={item} href={`#${item.toLowerCase()}`}
@@ -93,24 +106,33 @@ function Nav() {
           ))}
         </div>
 
+        {/* Desktop CTAs */}
         <div className="hidden md:flex items-center gap-3">
           <a href="#contact" className="text-sm px-4 py-2 transition-colors"
             style={{ color: "var(--text-muted)" }}>
             Sign in
           </a>
           <a href="#get-started"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
-            style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all"
+            style={{
+              background: "linear-gradient(135deg, #6366f1, #818cf8)",
+              color: "#fff",
+              boxShadow: "0 0 20px rgba(99,102,241,0.3)",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 32px rgba(99,102,241,0.5)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(99,102,241,0.3)"; }}>
             Book a Demo <Calendar size={13} />
           </a>
         </div>
 
+        {/* Mobile hamburger */}
         <button className="md:hidden p-1" style={{ color: "var(--text-muted)" }}
           onClick={() => setOpen(!open)}>
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }}
@@ -124,7 +146,11 @@ function Nav() {
             ))}
             <a href="#get-started"
               className="mt-2 text-center py-3 rounded-full font-semibold text-sm"
-              style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+              style={{
+                background: "linear-gradient(135deg, #6366f1, #818cf8)",
+                color: "#fff",
+                boxShadow: "0 0 20px rgba(99,102,241,0.25)",
+              }}>
               Book a Demo
             </a>
           </motion.div>
@@ -135,6 +161,7 @@ function Nav() {
 }
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
+
 const metrics = [
   { value: "10x", label: "Faster than building in-house" },
   { value: "$2M+", label: "Average annual savings per client" },
@@ -147,19 +174,46 @@ function Hero() {
     <section aria-label="Hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
-      {/* Subtle radial background */}
-      <div className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,149,106,0.06) 0%, transparent 70%)"
-        }} />
+      {/* Grid */}
+      <div className="absolute inset-0 grid-bg" />
+
+      {/* Radial vignette over grid */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "radial-gradient(ellipse 80% 60% at 50% 40%, transparent 30%, rgba(5,5,16,0.85) 100%)"
+      }} />
+
+      {/* Floating orbs */}
+      <div className="orb-1 absolute pointer-events-none" style={{
+        top: "-15%", left: "10%", width: "52vw", height: "52vw",
+        background: "radial-gradient(circle, rgba(99,102,241,0.16) 0%, transparent 65%)",
+        filter: "blur(80px)",
+      }} />
+      <div className="orb-2 absolute pointer-events-none" style={{
+        top: "25%", right: "-8%", width: "38vw", height: "38vw",
+        background: "radial-gradient(circle, rgba(34,211,238,0.1) 0%, transparent 65%)",
+        filter: "blur(80px)",
+      }} />
+      <div className="orb-3 absolute pointer-events-none" style={{
+        bottom: "0", left: "-8%", width: "42vw", height: "42vw",
+        background: "radial-gradient(circle, rgba(167,139,250,0.09) 0%, transparent 65%)",
+        filter: "blur(80px)",
+      }} />
 
       <div className="relative z-10 max-w-4xl mx-auto px-8 md:px-14 text-center pt-36 pb-24">
 
-        {/* Badge */}
+        {/* Live badge */}
         <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
           className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-medium mb-10"
-          style={{ background: "var(--surface-2)", border: "1px solid var(--border)", color: "var(--text-muted)" }}>
-          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--accent)" }} />
+          style={{
+            background: "rgba(99,102,241,0.08)",
+            border: "1px solid rgba(99,102,241,0.25)",
+            color: "var(--text-muted)",
+          }}>
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full dot-pulse" style={{ background: "var(--green)" }} />
+            <span className="font-mono text-[10px] font-bold" style={{ color: "var(--green)" }}>LIVE</span>
+          </span>
+          <span style={{ color: "rgba(99,102,241,0.4)" }}>·</span>
           California's AI solutions firm · Built on OpenClaw
         </motion.div>
 
@@ -174,7 +228,7 @@ function Hero() {
           </span>
         </motion.h1>
 
-        {/* Sub */}
+        {/* Subheadline */}
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25 }}
           className="text-lg md:text-xl max-w-2xl mx-auto mb-3 leading-relaxed"
           style={{ color: "var(--text-muted)" }}>
@@ -182,33 +236,43 @@ function Hero() {
           bottlenecks, cut costs, and compound over time.
         </motion.p>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-          className="text-sm mb-12" style={{ color: "var(--text-dim)" }}>
-          No R&D overhead. No 18-month roadmaps. Just working AI, fast.
+          className="text-sm mb-12 font-mono" style={{ color: "var(--text-dim)" }}>
+          // No R&D overhead. No 18-month roadmaps. Just working AI, fast.
         </motion.p>
 
         {/* CTAs */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
           className="flex items-center justify-center gap-4 flex-wrap mb-24">
           <a href="#get-started"
-            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-105"
-            style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all"
+            style={{
+              background: "linear-gradient(135deg, #6366f1, #818cf8)",
+              color: "#fff",
+              boxShadow: "0 0 28px rgba(99,102,241,0.35)",
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 48px rgba(99,102,241,0.55)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(99,102,241,0.35)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}>
             Book a Free Strategy Call <Calendar size={16} />
           </a>
           <a href="#products"
-            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all"
-            style={{ border: "1px solid var(--border)", color: "var(--text-muted)" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(212,149,106,0.4)"; (e.currentTarget as HTMLElement).style.color = "var(--text)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.color = "var(--text-muted)"; }}>
+            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base btn-ghost transition-all">
             <Play size={14} /> See Products
           </a>
         </motion.div>
 
         {/* Metrics */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {metrics.map(m => (
-            <div key={m.label} className="card p-8 text-left">
-              <div className="text-4xl font-space font-black mb-2" style={{ color: "var(--accent)" }}>{m.value}</div>
+            <div key={m.label} className="card p-6 md:p-8 text-left relative overflow-hidden">
+              {/* Corner accent */}
+              <div className="absolute top-0 left-0 w-16 h-16 pointer-events-none" style={{
+                background: "radial-gradient(circle at 0% 0%, rgba(99,102,241,0.15), transparent 70%)"
+              }} />
+              <div className="text-3xl md:text-4xl font-space font-black mb-2" style={{
+                color: "var(--cyan)",
+                textShadow: "0 0 20px rgba(34,211,238,0.35)",
+              }}>{m.value}</div>
               <div className="text-xs leading-snug" style={{ color: "var(--text-dim)" }}>{m.label}</div>
             </div>
           ))}
@@ -224,6 +288,7 @@ function Hero() {
 }
 
 // ─── Pain Banner ──────────────────────────────────────────────────────────────
+
 const pains = [
   "Repetitive manual processes killing productivity?",
   "Customer support overwhelmed and expensive?",
@@ -235,12 +300,20 @@ const pains = [
 
 function PainBanner() {
   return (
-    <div className="py-5 overflow-hidden" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+    <div className="py-5 overflow-hidden relative"
+      style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+      {/* Fade edges */}
+      <div className="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none"
+        style={{ background: "linear-gradient(to right, var(--bg), transparent)" }} />
+      <div className="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none"
+        style={{ background: "linear-gradient(to left, var(--bg), transparent)" }} />
+
       <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         className="flex gap-16 whitespace-nowrap">
         {[...pains, ...pains].map((p, i) => (
-          <span key={i} className="text-sm flex items-center gap-3" style={{ color: "var(--text-dim)" }}>
-            <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
+          <span key={i} className="text-sm flex items-center gap-3 font-mono"
+            style={{ color: "var(--text-dim)" }}>
+            <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--cyan)" }} />
             {p}
           </span>
         ))}
@@ -250,6 +323,7 @@ function PainBanner() {
 }
 
 // ─── Products ─────────────────────────────────────────────────────────────────
+
 const products = [
   {
     icon: Bot, name: "AgentOS", tagline: "Your AI workforce, managed.", badge: "Most Popular",
@@ -296,9 +370,8 @@ function Products() {
           </div>
         </Reveal>
 
-        {/* Tabs */}
+        {/* Tabs — 2×2 grid on mobile, row on desktop */}
         <Reveal delay={0.1}>
-          {/* Mobile: 2×2 grid; Desktop: tab row */}
           <div className="grid grid-cols-2 md:flex md:flex-wrap mb-8 md:mb-10 gap-2 md:gap-0"
             style={{ borderBottom: "1px solid var(--border)" }}>
             {products.map((prod, i) => (
@@ -306,14 +379,15 @@ function Products() {
                 className="flex items-center justify-center md:justify-start gap-2 px-4 py-4 md:px-5 md:py-3 text-sm font-medium transition-all relative rounded-xl md:rounded-none"
                 style={{
                   color: active === i ? "var(--text)" : "var(--text-muted)",
-                  background: active === i ? "rgba(212,149,106,0.08)" : "transparent",
-                  border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "var(--border)"}`,
+                  background: active === i ? "rgba(99,102,241,0.08)" : "transparent",
+                  border: `1px solid ${active === i ? "rgba(99,102,241,0.35)" : "var(--border)"}`,
+                  boxShadow: active === i ? "0 0 20px rgba(99,102,241,0.08)" : "none",
                 }}>
                 <prod.icon size={15} style={{ color: active === i ? "var(--accent)" : "inherit", flexShrink: 0 }} />
                 <span className="truncate">{prod.name}</span>
                 {prod.badge && (
-                  <span className="hidden sm:inline text-[10px] px-1.5 py-0.5 rounded font-semibold flex-shrink-0"
-                    style={{ background: "rgba(212,149,106,0.15)", color: "var(--accent)" }}>
+                  <span className="hidden sm:inline text-[10px] px-1.5 py-0.5 rounded font-semibold flex-shrink-0 font-mono"
+                    style={{ background: "rgba(99,102,241,0.12)", color: "var(--accent)" }}>
                     {prod.badge}
                   </span>
                 )}
@@ -322,23 +396,27 @@ function Products() {
           </div>
         </Reveal>
 
-        {/* Detail */}
+        {/* Product detail */}
         <AnimatePresence mode="wait">
           <motion.div key={active}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35 }}
             className="card-lg p-10 md:p-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-              {/* Left */}
+
+              {/* Left column */}
               <div>
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                    style={{ background: "rgba(212,149,106,0.12)", border: "1px solid rgba(212,149,106,0.2)" }}>
+                    style={{
+                      background: "rgba(99,102,241,0.1)",
+                      border: "1px solid rgba(99,102,241,0.2)",
+                    }}>
                     <p.icon size={22} style={{ color: "var(--accent)" }} />
                   </div>
                   {p.badge && (
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full"
-                      style={{ background: "rgba(212,149,106,0.12)", color: "var(--accent)" }}>
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full font-mono"
+                      style={{ background: "rgba(99,102,241,0.1)", color: "var(--accent)" }}>
                       {p.badge}
                     </span>
                   )}
@@ -347,28 +425,39 @@ function Products() {
                 <p className="text-base font-medium mb-6" style={{ color: "var(--accent)" }}>{p.tagline}</p>
                 <p className="text-base leading-relaxed mb-8" style={{ color: "var(--text-muted)" }}>{p.desc}</p>
 
+                {/* Metric quote */}
                 <div className="p-5 rounded-xl mb-10 text-sm italic leading-relaxed"
-                  style={{ background: "rgba(212,149,106,0.06)", borderLeft: "2px solid var(--accent)", color: "var(--accent)" }}>
+                  style={{
+                    background: "rgba(99,102,241,0.06)",
+                    borderLeft: "2px solid var(--accent)",
+                    color: "var(--accent-hover)",
+                  }}>
                   {p.metric}
                 </div>
 
+                {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a href="#get-started"
-                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base transition-all hover:opacity-90"
-                    style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-base transition-all"
+                    style={{
+                      background: "linear-gradient(135deg, #6366f1, #818cf8)",
+                      color: "#fff",
+                      boxShadow: "0 0 24px rgba(99,102,241,0.3)",
+                    }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(99,102,241,0.5)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(99,102,241,0.3)"; }}>
                     Request Demo <ArrowRight size={16} />
                   </a>
                   <a href="#pricing"
-                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-base transition-all"
-                    style={{ border: "1px solid var(--border)", color: "var(--text-muted)" }}>
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 rounded-2xl font-semibold text-base btn-ghost transition-all">
                     See Pricing
                   </a>
                 </div>
               </div>
 
-              {/* Right */}
+              {/* Right column */}
               <div>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-6"
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-6 font-mono"
                   style={{ color: "var(--text-dim)" }}>
                   What's included
                 </p>
@@ -391,6 +480,7 @@ function Products() {
 }
 
 // ─── Solutions ────────────────────────────────────────────────────────────────
+
 const roles = [
   { role: "CEO / Founder", icon: "👔", problem: "You know AI matters but can't bet 18 months on an internal R&D bet.", solution: "We deliver a working AI system in 6 weeks with measurable ROI. If it doesn't pay for itself, we don't stop until it does.", recs: ["AgentOS", "InsightPulse"] },
   { role: "CTO / VP Engineering", icon: "🧠", problem: "Your engineers are too busy maintaining existing systems to build AI.", solution: "We plug in as your AI engineering team. You get OpenClaw-powered agents without burning your existing team's capacity.", recs: ["AgentOS", "DataMind", "AutoFlow"] },
@@ -422,11 +512,15 @@ function Solutions() {
             <button key={role.role} onClick={() => setActive(i)}
               className="p-6 md:p-8 rounded-2xl text-left transition-all"
               style={{
-                background: active === i ? "rgba(212,149,106,0.08)" : "var(--surface)",
-                border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "var(--border)"}`,
+                background: active === i ? "rgba(99,102,241,0.08)" : "var(--surface)",
+                border: `1px solid ${active === i ? "rgba(99,102,241,0.35)" : "var(--border)"}`,
+                boxShadow: active === i ? "0 0 20px rgba(99,102,241,0.08)" : "none",
               }}>
               <div className="text-2xl mb-3">{role.icon}</div>
-              <div className="text-sm font-semibold leading-snug" style={{ color: active === i ? "var(--text)" : "var(--text-muted)" }}>{role.role}</div>
+              <div className="text-sm font-semibold leading-snug"
+                style={{ color: active === i ? "var(--text)" : "var(--text-muted)" }}>
+                {role.role}
+              </div>
             </button>
           ))}
         </div>
@@ -437,13 +531,18 @@ function Solutions() {
             className="card-lg p-10 md:p-16">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
               <div>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>The Problem</p>
-                <p className="text-xl leading-relaxed mb-10" style={{ color: "var(--text)" }}>"{r.problem}"</p>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>Our Solution</p>
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4 font-mono"
+                  style={{ color: "var(--text-dim)" }}>The Problem</p>
+                <p className="text-xl leading-relaxed mb-10" style={{ color: "var(--text)" }}>
+                  "{r.problem}"
+                </p>
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4 font-mono"
+                  style={{ color: "var(--text-dim)" }}>Our Solution</p>
                 <p className="leading-relaxed" style={{ color: "var(--text-muted)" }}>{r.solution}</p>
               </div>
               <div>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-6" style={{ color: "var(--text-dim)" }}>Recommended Products</p>
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-6 font-mono"
+                  style={{ color: "var(--text-dim)" }}>Recommended Products</p>
                 <div className="space-y-3">
                   {r.recs.map(name => {
                     const prod = products.find(p => p.name === name)!;
@@ -451,7 +550,7 @@ function Solutions() {
                       <div key={name} className="flex items-center gap-4 p-5 md:p-6 rounded-2xl transition-all card-hover"
                         style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}>
                         <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                          style={{ background: "rgba(212,149,106,0.1)" }}>
+                          style={{ background: "rgba(99,102,241,0.1)" }}>
                           <prod.icon size={17} style={{ color: "var(--accent)" }} />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -464,8 +563,14 @@ function Solutions() {
                   })}
                 </div>
                 <a href="#get-started"
-                  className="mt-8 w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-sm transition-all hover:opacity-90"
-                  style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+                  className="mt-8 w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-sm transition-all"
+                  style={{
+                    background: "linear-gradient(135deg, #6366f1, #818cf8)",
+                    color: "#fff",
+                    boxShadow: "0 0 24px rgba(99,102,241,0.25)",
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(99,102,241,0.45)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(99,102,241,0.25)"; }}>
                   Get a Custom Plan <ArrowRight size={14} />
                 </a>
               </div>
@@ -478,6 +583,7 @@ function Solutions() {
 }
 
 // ─── Case Studies ─────────────────────────────────────────────────────────────
+
 const cases = [
   {
     company: "NeuralShift Commerce", industry: "E-Commerce",
@@ -521,25 +627,34 @@ function CaseStudies() {
             <Reveal key={c.company} delay={i * 0.08}>
               <article className="card p-10 md:p-12 flex flex-col h-full card-hover hover-lift">
                 <div className="flex items-center justify-between mb-6">
-                  <span className="text-xs font-semibold px-3 py-1.5 rounded-full"
-                    style={{ background: "var(--surface-2)", color: "var(--text-muted)", border: "1px solid var(--border)" }}>
+                  <span className="text-xs font-semibold px-3 py-1.5 rounded-full font-mono"
+                    style={{
+                      background: "rgba(99,102,241,0.08)",
+                      color: "var(--accent)",
+                      border: "1px solid rgba(99,102,241,0.2)",
+                    }}>
                     {c.industry}
                   </span>
                   <ArrowUpRight size={14} style={{ color: "var(--text-dim)" }} />
                 </div>
                 <h3 className="text-lg font-space font-bold mb-6" style={{ color: "var(--text)" }}>{c.company}</h3>
                 <div className="mb-5">
-                  <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3" style={{ color: "var(--text-dim)" }}>Challenge</p>
+                  <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 font-mono"
+                    style={{ color: "var(--text-dim)" }}>Challenge</p>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{c.challenge}</p>
                 </div>
                 <div className="mb-8 flex-1">
-                  <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3" style={{ color: "var(--text-dim)" }}>Solution</p>
+                  <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 font-mono"
+                    style={{ color: "var(--text-dim)" }}>Solution</p>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{c.solution}</p>
                 </div>
                 <div className="grid grid-cols-3 gap-3 pt-6" style={{ borderTop: "1px solid var(--border)" }}>
                   {c.results.map(res => (
                     <div key={res.label} className="text-center">
-                      <div className="text-xl font-space font-black mb-1" style={{ color: "var(--accent)" }}>{res.metric}</div>
+                      <div className="text-xl font-space font-black mb-1" style={{
+                        color: "var(--cyan)",
+                        textShadow: "0 0 16px rgba(34,211,238,0.3)",
+                      }}>{res.metric}</div>
                       <div className="text-xs leading-tight" style={{ color: "var(--text-dim)" }}>{res.label}</div>
                     </div>
                   ))}
@@ -553,7 +668,8 @@ function CaseStudies() {
   );
 }
 
-// ─── Trust ────────────────────────────────────────────────────────────────────
+// ─── Trust Bar ────────────────────────────────────────────────────────────────
+
 const trust = [
   { icon: Shield, text: "SOC2 Ready" },
   { icon: Globe, text: "California Based" },
@@ -569,8 +685,9 @@ function TrustBar() {
       <div className="max-w-5xl mx-auto px-8 md:px-14 grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-8">
         {trust.map(t => (
           <div key={t.text} className="flex flex-col items-center gap-3 text-center">
-            <t.icon size={18} style={{ color: "var(--accent)", opacity: 0.7 }} />
-            <span className="text-xs font-medium leading-tight" style={{ color: "var(--text-dim)" }}>{t.text}</span>
+            <t.icon size={18} style={{ color: "var(--accent)", opacity: 0.75 }} />
+            <span className="text-xs font-medium leading-tight font-mono"
+              style={{ color: "var(--text-dim)" }}>{t.text}</span>
           </div>
         ))}
       </div>
@@ -579,6 +696,7 @@ function TrustBar() {
 }
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
+
 const plans = [
   {
     name: "AI Pilot", price: "$15K", period: "one-time · 6 weeks", highlight: false,
@@ -622,24 +740,36 @@ function Pricing() {
             <Reveal key={plan.name} delay={i * 0.08}>
               <div className="flex flex-col h-full relative"
                 style={{
-                  background: plan.highlight ? "#1a1612" : "var(--surface)",
-                  border: `1px solid ${plan.highlight ? "rgba(212,149,106,0.35)" : "var(--border)"}`,
+                  background: plan.highlight ? "#0c0c28" : "var(--surface)",
+                  border: `1px solid ${plan.highlight ? "rgba(99,102,241,0.5)" : "var(--border)"}`,
                   borderRadius: "24px",
                   padding: "clamp(32px, 5vw, 48px)",
+                  boxShadow: plan.highlight
+                    ? "0 0 60px rgba(99,102,241,0.14), 0 0 120px rgba(99,102,241,0.06), inset 0 0 60px rgba(99,102,241,0.03)"
+                    : "none",
                 }}>
                 {plan.highlight && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-xs font-semibold"
-                    style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-xs font-semibold font-mono"
+                    style={{
+                      background: "linear-gradient(135deg, #6366f1, #818cf8)",
+                      color: "#fff",
+                      boxShadow: "0 0 16px rgba(99,102,241,0.4)",
+                    }}>
                     Most Popular
                   </div>
                 )}
                 <div className="mb-8">
-                  <p className="text-sm font-medium mb-4" style={{ color: "var(--text-muted)" }}>{plan.name}</p>
+                  <p className="text-sm font-medium mb-4 font-mono" style={{ color: "var(--text-muted)" }}>
+                    {plan.name}
+                  </p>
                   <div className="flex items-end gap-2 mb-4">
-                    <span className="text-5xl font-space font-black" style={{ color: plan.highlight ? "var(--accent)" : "var(--text)" }}>
+                    <span className="text-5xl font-space font-black" style={{
+                      color: plan.highlight ? "var(--cyan)" : "var(--text)",
+                      textShadow: plan.highlight ? "0 0 24px rgba(34,211,238,0.3)" : "none",
+                    }}>
                       {plan.price}
                     </span>
-                    <span className="text-sm mb-2" style={{ color: "var(--text-dim)" }}>{plan.period}</span>
+                    <span className="text-sm mb-2 font-mono" style={{ color: "var(--text-dim)" }}>{plan.period}</span>
                   </div>
                   <p className="leading-relaxed text-sm" style={{ color: "var(--text-muted)" }}>{plan.desc}</p>
                 </div>
@@ -654,10 +784,33 @@ function Pricing() {
                 </div>
 
                 <a href="#get-started"
-                  className="w-full py-4 rounded-2xl font-semibold text-center text-sm block transition-all hover:opacity-90"
+                  className="w-full py-4 rounded-2xl font-semibold text-center text-sm block transition-all"
                   style={plan.highlight
-                    ? { background: "var(--accent)", color: "#0e0e0e" }
-                    : { border: "1px solid var(--border)", color: "var(--text-muted)" }}>
+                    ? {
+                      background: "linear-gradient(135deg, #6366f1, #818cf8)",
+                      color: "#fff",
+                      boxShadow: "0 0 24px rgba(99,102,241,0.3)",
+                    }
+                    : {
+                      border: "1px solid var(--border)",
+                      color: "var(--text-muted)",
+                    }}
+                  onMouseEnter={e => {
+                    if (plan.highlight) {
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 0 40px rgba(99,102,241,0.5)";
+                    } else {
+                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(99,102,241,0.4)";
+                      (e.currentTarget as HTMLElement).style.color = "var(--text)";
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (plan.highlight) {
+                      (e.currentTarget as HTMLElement).style.boxShadow = "0 0 24px rgba(99,102,241,0.3)";
+                    } else {
+                      (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";
+                      (e.currentTarget as HTMLElement).style.color = "var(--text-muted)";
+                    }
+                  }}>
                   {plan.cta}
                 </a>
               </div>
@@ -668,7 +821,9 @@ function Pricing() {
         <Reveal delay={0.3}>
           <p className="text-center text-sm mt-10" style={{ color: "var(--text-dim)" }}>
             All plans include a free 30-min strategy call before any commitment. &nbsp;
-            <a href="#get-started" className="hover:underline transition-colors" style={{ color: "var(--accent)" }}>Schedule yours →</a>
+            <a href="#get-started" className="hover:underline transition-colors" style={{ color: "var(--accent)" }}>
+              Schedule yours →
+            </a>
           </p>
         </Reveal>
       </div>
@@ -677,6 +832,7 @@ function Pricing() {
 }
 
 // ─── Get Started ──────────────────────────────────────────────────────────────
+
 const formSteps = [
   { title: "What's your role?", key: "role", options: ["CEO / Founder", "CTO / VP Engineering", "COO / VP Operations", "VP Sales / Marketing", "Other Executive"] },
   { title: "What's your biggest challenge?", key: "challenge", options: ["Too many manual processes", "Customer support can't scale", "Data is siloed and unusable", "Competitors moving faster with AI", "Engineering team is overloaded", "Need to justify AI ROI to leadership"] },
@@ -714,24 +870,36 @@ function GetStarted() {
         <Reveal delay={0.1}>
           <div className="card-lg p-10 md:p-16">
             {submitted ? (
-              <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
+              <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-12">
                 <div className="text-5xl mb-6">🤖</div>
-                <h3 className="font-space font-bold text-2xl mb-4" style={{ color: "var(--text)" }}>You're on the list.</h3>
+                <h3 className="font-space font-bold text-2xl mb-4" style={{ color: "var(--text)" }}>
+                  You're on the list.
+                </h3>
                 <p className="leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                  We'll reach out to <span style={{ color: "var(--accent)" }}>{contact.email}</span> within 24 hours.
+                  We'll reach out to <span style={{ color: "var(--cyan)" }}>{contact.email}</span> within 24 hours.
                 </p>
               </motion.div>
             ) : step < formSteps.length ? (
               <div>
+                {/* Progress bar */}
                 <div className="flex gap-2 mb-10">
                   {formSteps.map((_, i) => (
                     <div key={i} className="flex-1 h-0.5 rounded-full transition-all duration-500"
-                      style={{ background: i <= step ? "var(--accent)" : "var(--border)" }} />
+                      style={{
+                        background: i <= step
+                          ? "linear-gradient(90deg, #6366f1, #818cf8)"
+                          : "var(--border)",
+                        boxShadow: i <= step ? "0 0 8px rgba(99,102,241,0.4)" : "none",
+                      }} />
                   ))}
                 </div>
+
                 <AnimatePresence mode="wait">
-                  <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                    <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3" style={{ color: "var(--text-dim)" }}>
+                  <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}>
+                    <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3 font-mono"
+                      style={{ color: "var(--text-dim)" }}>
                       Step {step + 1} of {formSteps.length}
                     </p>
                     <h3 className="font-space font-bold text-2xl mb-8" style={{ color: "var(--text)" }}>
@@ -742,18 +910,27 @@ function GetStarted() {
                         <button key={opt} onClick={() => handleSelect(opt)}
                           className="w-full text-left px-5 py-4 rounded-2xl text-sm transition-all"
                           style={{
-                            background: answers[formSteps[step].key] === opt ? "rgba(212,149,106,0.08)" : "var(--surface-2)",
-                            border: `1px solid ${answers[formSteps[step].key] === opt ? "rgba(212,149,106,0.4)" : "var(--border)"}`,
-                            color: answers[formSteps[step].key] === opt ? "var(--accent)" : "var(--text-muted)",
+                            background: answers[formSteps[step].key] === opt
+                              ? "rgba(99,102,241,0.1)"
+                              : "var(--surface-2)",
+                            border: `1px solid ${answers[formSteps[step].key] === opt
+                              ? "rgba(99,102,241,0.45)"
+                              : "var(--border)"}`,
+                            color: answers[formSteps[step].key] === opt
+                              ? "var(--accent-hover)"
+                              : "var(--text-muted)",
+                            boxShadow: answers[formSteps[step].key] === opt
+                              ? "0 0 16px rgba(99,102,241,0.1)"
+                              : "none",
                           }}>
                           {opt}
                         </button>
                       ))}
                     </div>
                     {step > 0 && (
-                      <button onClick={() => setStep(s => s - 1)} className="mt-6 text-sm transition-colors"
+                      <button onClick={() => setStep(s => s - 1)} className="mt-6 text-sm transition-colors font-mono"
                         style={{ color: "var(--text-dim)" }}>
-                        ← Back
+                        ← back
                       </button>
                     )}
                   </motion.div>
@@ -761,11 +938,22 @@ function GetStarted() {
               </div>
             ) : (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                {/* Progress bar - complete */}
                 <div className="flex gap-2 mb-10">
-                  {formSteps.map((_, i) => <div key={i} className="flex-1 h-0.5 rounded-full" style={{ background: "var(--accent)" }} />)}
+                  {formSteps.map((_, i) => (
+                    <div key={i} className="flex-1 h-0.5 rounded-full"
+                      style={{
+                        background: "linear-gradient(90deg, #6366f1, #818cf8)",
+                        boxShadow: "0 0 8px rgba(99,102,241,0.4)",
+                      }} />
+                  ))}
                 </div>
-                <h3 className="font-space font-bold text-2xl mb-2" style={{ color: "var(--text)" }}>Almost there.</h3>
-                <p className="mb-8 text-sm" style={{ color: "var(--text-muted)" }}>Where should we send your custom AI roadmap?</p>
+                <h3 className="font-space font-bold text-2xl mb-2" style={{ color: "var(--text)" }}>
+                  Almost there.
+                </h3>
+                <p className="mb-8 text-sm" style={{ color: "var(--text-muted)" }}>
+                  Where should we send your custom AI roadmap?
+                </p>
                 <form onSubmit={e => { e.preventDefault(); setSubmitted(true); }} className="space-y-3">
                   {[
                     { key: "name", placeholder: "Your full name", type: "text" },
@@ -773,27 +961,28 @@ function GetStarted() {
                     { key: "email", placeholder: "Work email", type: "email" },
                   ].map(f => (
                     <input key={f.key} type={f.type} required placeholder={f.placeholder}
-                      className="w-full px-5 py-4 rounded-2xl text-sm transition-colors outline-none"
-                      style={{
-                        background: "var(--surface-2)",
-                        border: "1px solid var(--border)",
-                        color: "var(--text)",
-                      }}
+                      className="form-input w-full px-5 py-4 rounded-2xl text-sm"
                       value={contact[f.key as keyof typeof contact]}
                       onChange={e => setContact(prev => ({ ...prev, [f.key]: e.target.value }))} />
                   ))}
                   <button type="submit"
-                    className="w-full py-4 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:opacity-90 mt-2"
-                    style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+                    className="w-full py-4 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all mt-2"
+                    style={{
+                      background: "linear-gradient(135deg, #6366f1, #818cf8)",
+                      color: "#fff",
+                      boxShadow: "0 0 28px rgba(99,102,241,0.35)",
+                    }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 44px rgba(99,102,241,0.55)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(99,102,241,0.35)"; }}>
                     Book My Strategy Call <Calendar size={15} />
                   </button>
-                  <p className="text-xs text-center pt-1" style={{ color: "var(--text-dim)" }}>
-                    No spam. No pressure. Just an honest conversation.
+                  <p className="text-xs text-center pt-1 font-mono" style={{ color: "var(--text-dim)" }}>
+                    // No spam. No pressure. Just an honest conversation.
                   </p>
                 </form>
-                <button onClick={() => setStep(s => s - 1)} className="mt-5 text-sm transition-colors"
+                <button onClick={() => setStep(s => s - 1)} className="mt-5 text-sm transition-colors font-mono"
                   style={{ color: "var(--text-dim)" }}>
-                  ← Back
+                  ← back
                 </button>
               </motion.div>
             )}
@@ -818,6 +1007,7 @@ function GetStarted() {
 }
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
+
 function Footer() {
   return (
     <footer role="contentinfo" className="pt-20 pb-12" style={{ borderTop: "1px solid var(--border)" }}>
@@ -826,7 +1016,11 @@ function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-5">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
-                style={{ background: "var(--accent)", color: "#0e0e0e" }}>
+                style={{
+                  background: "linear-gradient(135deg, #6366f1, #818cf8)",
+                  boxShadow: "0 0 14px rgba(99,102,241,0.3)",
+                  color: "#fff",
+                }}>
                 IL
               </div>
               <span className="font-space font-semibold" style={{ color: "var(--text)" }}>
@@ -836,15 +1030,17 @@ function Footer() {
             <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-dim)" }}>
               Where human intelligence meets machine precision.
             </p>
-            <p className="text-xs" style={{ color: "var(--text-dim)" }}>California, USA 🌴</p>
+            <p className="text-xs font-mono" style={{ color: "var(--text-dim)" }}>California, USA 🌴</p>
           </div>
+
           {[
             { label: "Products", items: products.map(p => [p.name, "#products"]) },
             { label: "Solutions", items: roles.map(r => [r.role, "#solutions"]) },
             { label: "Company", items: [["Pricing", "#pricing"], ["Case Studies", "#work"], ["GitHub", "https://github.com/theo-impressionlabz"], ["Email", "mailto:theo@impressionlabz.com"], ["llms.txt", "/llms.txt"]] },
           ].map(col => (
             <div key={col.label}>
-              <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-5" style={{ color: "var(--text-dim)" }}>{col.label}</p>
+              <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-5 font-mono"
+                style={{ color: "var(--text-dim)" }}>{col.label}</p>
               <div className="space-y-3.5">
                 {col.items.map(([label, href]) => (
                   <a key={label} href={href}
@@ -857,7 +1053,8 @@ function Footer() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-8 text-xs"
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-8 text-xs font-mono"
           style={{ borderTop: "1px solid var(--border)", color: "var(--text-dim)" }}>
           <span>© {new Date().getFullYear()} Impression Labz. All rights reserved.</span>
           <span>Built with OpenClaw 🦞 · California, USA</span>
@@ -868,6 +1065,7 @@ function Footer() {
 }
 
 // ─── App ──────────────────────────────────────────────────────────────────────
+
 export default function Home() {
   return (
     <main style={{ background: "var(--bg)" }}>
