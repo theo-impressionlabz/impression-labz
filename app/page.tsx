@@ -6,7 +6,7 @@ import {
   Bot, Zap, BarChart3, ArrowRight, Github, Mail,
   ChevronDown, CheckCircle2, Menu, X, ExternalLink,
   Clock, TrendingUp, Shield, Star, ChevronRight,
-  Database, Globe, Play, Calendar, Users, ArrowUpRight
+  Database, Globe, Play, Calendar, Users, Linkedin
 } from "lucide-react";
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
@@ -98,7 +98,7 @@ function Nav() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8 text-sm" style={{ color: "var(--text-muted)" }}>
-          {["Products", "Solutions", "Pricing", "About"].map(item => (
+          {["Products", "Solutions", "Pricing", "Work"].map(item => (
             <a key={item} href={`#${item.toLowerCase()}`}
               className="hover:text-[var(--text)] transition-colors">
               {item}
@@ -108,9 +108,9 @@ function Nav() {
 
         {/* Desktop CTAs */}
         <div className="hidden md:flex items-center gap-3">
-          <a href="#contact" className="text-sm px-4 py-2 transition-colors"
+          <a href="#get-started" className="text-sm px-4 py-2 transition-colors"
             style={{ color: "var(--text-muted)" }}>
-            Sign in
+            Contact
           </a>
           <a href="#get-started"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all"
@@ -139,7 +139,7 @@ function Nav() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden px-5 py-6 flex flex-col gap-5"
             style={{ background: "var(--surface)", borderTop: "1px solid var(--border)" }}>
-            {["Products", "Solutions", "Pricing", "About"].map(item => (
+            {["Products", "Solutions", "Pricing", "Work"].map(item => (
               <a key={item} href={`#${item.toLowerCase()}`}
                 className="text-base transition-colors" style={{ color: "var(--text-muted)" }}
                 onClick={() => setOpen(false)}>{item}</a>
@@ -312,7 +312,7 @@ function PainBanner() {
         className="flex gap-16 whitespace-nowrap">
         {[...pains, ...pains].map((p, i) => (
           <span key={i} className="text-sm flex items-center gap-3 font-mono"
-            style={{ color: "var(--text-dim)" }}>
+            style={{ color: "var(--text-muted)" }}>
             <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--cyan)" }} />
             {p}
           </span>
@@ -626,7 +626,7 @@ function CaseStudies() {
           {cases.map((c, i) => (
             <Reveal key={c.company} delay={i * 0.08}>
               <article className="card p-10 md:p-12 flex flex-col h-full card-hover hover-lift">
-                <div className="flex items-center justify-between mb-6">
+                <div className="mb-6">
                   <span className="text-xs font-semibold px-3 py-1.5 rounded-full font-mono"
                     style={{
                       background: "rgba(99,102,241,0.08)",
@@ -635,7 +635,6 @@ function CaseStudies() {
                     }}>
                     {c.industry}
                   </span>
-                  <ArrowUpRight size={14} style={{ color: "var(--text-dim)" }} />
                 </div>
                 <h3 className="text-lg font-space font-bold mb-6" style={{ color: "var(--text)" }}>{c.company}</h3>
                 <div className="mb-5">
@@ -845,10 +844,26 @@ function GetStarted() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [contact, setContact] = useState({ name: "", email: "", company: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSelect = (val: string) => {
     setAnswers(prev => ({ ...prev, [formSteps[step].key]: val }));
     if (step < formSteps.length - 1) setTimeout(() => setStep(s => s + 1), 280);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...contact, answers }),
+      });
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -954,7 +969,7 @@ function GetStarted() {
                 <p className="mb-8 text-sm" style={{ color: "var(--text-muted)" }}>
                   Where should we send your custom AI roadmap?
                 </p>
-                <form onSubmit={e => { e.preventDefault(); setSubmitted(true); }} className="space-y-3">
+                <form onSubmit={handleSubmit} className="space-y-3">
                   {[
                     { key: "name", placeholder: "Your full name", type: "text" },
                     { key: "company", placeholder: "Company name", type: "text" },
@@ -965,16 +980,17 @@ function GetStarted() {
                       value={contact[f.key as keyof typeof contact]}
                       onChange={e => setContact(prev => ({ ...prev, [f.key]: e.target.value }))} />
                   ))}
-                  <button type="submit"
+                  <button type="submit" disabled={loading}
                     className="w-full py-4 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all mt-2"
                     style={{
                       background: "linear-gradient(135deg, #6366f1, #818cf8)",
                       color: "#fff",
                       boxShadow: "0 0 28px rgba(99,102,241,0.35)",
+                      opacity: loading ? 0.7 : 1,
                     }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 44px rgba(99,102,241,0.55)"; }}
+                    onMouseEnter={e => { if (!loading) (e.currentTarget as HTMLElement).style.boxShadow = "0 0 44px rgba(99,102,241,0.55)"; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 28px rgba(99,102,241,0.35)"; }}>
-                    Book My Strategy Call <Calendar size={15} />
+                    {loading ? "Sending…" : <><span>Book My Strategy Call</span><Calendar size={15} /></>}
                   </button>
                   <p className="text-xs text-center pt-1 font-mono" style={{ color: "var(--text-dim)" }}>
                     // No spam. No pressure. Just an honest conversation.
@@ -990,7 +1006,7 @@ function GetStarted() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="flex items-center justify-center gap-8 mt-10 text-sm" style={{ color: "var(--text-dim)" }}>
+          <div className="flex items-center justify-center gap-8 mt-10 text-sm flex-wrap" style={{ color: "var(--text-dim)" }}>
             <a href="mailto:theo@impressionlabz.com"
               className="flex items-center gap-2 transition-colors hover:text-[var(--accent)]">
               <Mail size={14} /> theo@impressionlabz.com
@@ -998,6 +1014,10 @@ function GetStarted() {
             <a href="https://github.com/theo-impressionlabz" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 transition-colors hover:text-[var(--accent)]">
               <Github size={14} /> GitHub
+            </a>
+            <a href="https://linkedin.com/company/impressionlabz" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-colors hover:text-[var(--accent)]">
+              <Linkedin size={14} /> LinkedIn
             </a>
           </div>
         </Reveal>
@@ -1036,7 +1056,7 @@ function Footer() {
           {[
             { label: "Products", items: products.map(p => [p.name, "#products"]) },
             { label: "Solutions", items: roles.map(r => [r.role, "#solutions"]) },
-            { label: "Company", items: [["Pricing", "#pricing"], ["Case Studies", "#work"], ["GitHub", "https://github.com/theo-impressionlabz"], ["Email", "mailto:theo@impressionlabz.com"], ["llms.txt", "/llms.txt"]] },
+            { label: "Company", items: [["Pricing", "#pricing"], ["Case Studies", "#work"], ["LinkedIn", "https://linkedin.com/company/impressionlabz"], ["GitHub", "https://github.com/theo-impressionlabz"], ["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"]] },
           ].map(col => (
             <div key={col.label}>
               <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-5 font-mono"
