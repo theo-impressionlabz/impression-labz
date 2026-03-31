@@ -94,9 +94,9 @@ function Nav() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <a href="#contact" className="text-sm px-4 py-2 transition-colors"
+          <a href="#get-started" className="text-sm px-4 py-2 transition-colors"
             style={{ color: "var(--text-muted)" }}>
-            Sign in
+            Get Started
           </a>
           <a href="#get-started"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
@@ -147,10 +147,12 @@ function Hero() {
     <section aria-label="Hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden">
 
+      {/* Dot grid texture */}
+      <div className="absolute inset-0 pointer-events-none dot-grid" style={{ opacity: 0.6 }} />
       {/* Subtle radial background */}
       <div className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,149,106,0.06) 0%, transparent 70%)"
+          background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,149,106,0.07) 0%, transparent 70%)"
         }} />
 
       <div className="relative z-10 max-w-4xl mx-auto px-8 md:px-14 text-center pt-36 pb-24">
@@ -207,8 +209,8 @@ function Hero() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {metrics.map(m => (
-            <div key={m.label} className="card p-8 text-left">
-              <div className="text-4xl font-space font-black mb-2" style={{ color: "var(--accent)" }}>{m.value}</div>
+            <div key={m.label} className="card p-6 md:p-8 text-left card-hover">
+              <div className="text-3xl md:text-4xl font-space font-black mb-2" style={{ color: "var(--accent)" }}>{m.value}</div>
               <div className="text-xs leading-snug" style={{ color: "var(--text-dim)" }}>{m.label}</div>
             </div>
           ))}
@@ -236,7 +238,7 @@ const pains = [
 function PainBanner() {
   return (
     <div className="py-5 overflow-hidden" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-      <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         className="flex gap-16 whitespace-nowrap">
         {[...pains, ...pains].map((p, i) => (
           <span key={i} className="text-sm flex items-center gap-3" style={{ color: "var(--text-dim)" }}>
@@ -281,12 +283,12 @@ function Products() {
   const [active, setActive] = useState(0);
   const p = products[active];
   return (
-    <section id="products" aria-label="Products" className="py-32 md:py-40">
-      <div className="max-w-5xl mx-auto px-8 md:px-14">
+    <section id="products" aria-label="Products" className="py-[var(--section-space)]">
+      <div className="section-shell">
         <Reveal>
-          <div className="mb-16">
+          <div className="section-header">
             <Label>The Product Suite</Label>
-            <h2 className="text-4xl md:text-5xl font-space font-bold mb-5">
+            <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
               Four products.<br className="hidden md:block" />{" "}
               <span className="gradient-text">One AI advantage.</span>
             </h2>
@@ -299,15 +301,15 @@ function Products() {
         {/* Tabs */}
         <Reveal delay={0.1}>
           {/* Mobile: 2×2 grid; Desktop: tab row */}
-          <div className="grid grid-cols-2 md:flex md:flex-wrap mb-8 md:mb-10 gap-2 md:gap-0"
-            style={{ borderBottom: "1px solid var(--border)" }}>
+          <div className="grid grid-cols-2 md:flex md:flex-wrap mb-10 md:mb-12 gap-3 p-3 rounded-[28px]"
+            style={{ border: "1px solid var(--border)", background: "rgba(255,255,255,0.015)" }}>
             {products.map((prod, i) => (
               <button key={prod.name} onClick={() => setActive(i)}
-                className="flex items-center justify-center md:justify-start gap-2 px-4 py-4 md:px-5 md:py-3 text-sm font-medium transition-all relative rounded-xl md:rounded-none"
+                className="flex items-center justify-center md:justify-start gap-2.5 px-4 py-4 md:px-5 md:py-4 text-sm font-medium transition-all relative rounded-2xl"
                 style={{
                   color: active === i ? "var(--text)" : "var(--text-muted)",
                   background: active === i ? "rgba(212,149,106,0.08)" : "transparent",
-                  border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "var(--border)"}`,
+                  border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "transparent"}`,
                 }}>
                 <prod.icon size={15} style={{ color: active === i ? "var(--accent)" : "inherit", flexShrink: 0 }} />
                 <span className="truncate">{prod.name}</span>
@@ -327,11 +329,12 @@ function Products() {
           <motion.div key={active}
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.35 }}
-            className="card-lg p-10 md:p-16">
+            className="card-lg"
+            style={{ padding: "var(--card-pad-lg)" }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
               {/* Left */}
-              <div>
-                <div className="flex items-center gap-3 mb-8">
+              <div className="stack-lg">
+                <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
                     style={{ background: "rgba(212,149,106,0.12)", border: "1px solid rgba(212,149,106,0.2)" }}>
                     <p.icon size={22} style={{ color: "var(--accent)" }} />
@@ -343,11 +346,13 @@ function Products() {
                     </span>
                   )}
                 </div>
-                <h3 className="text-3xl md:text-4xl font-space font-bold mb-2">{p.name}</h3>
-                <p className="text-base font-medium mb-6" style={{ color: "var(--accent)" }}>{p.tagline}</p>
-                <p className="text-base leading-relaxed mb-8" style={{ color: "var(--text-muted)" }}>{p.desc}</p>
+                <div>
+                  <h3 className="text-3xl md:text-4xl font-space font-bold mb-3">{p.name}</h3>
+                  <p className="text-base font-medium" style={{ color: "var(--accent)" }}>{p.tagline}</p>
+                </div>
+                <p className="text-base leading-relaxed" style={{ color: "var(--text-muted)" }}>{p.desc}</p>
 
-                <div className="p-5 rounded-xl mb-10 text-sm italic leading-relaxed"
+                <div className="p-6 rounded-2xl text-sm italic leading-relaxed"
                   style={{ background: "rgba(212,149,106,0.06)", borderLeft: "2px solid var(--accent)", color: "var(--accent)" }}>
                   {p.metric}
                 </div>
@@ -368,16 +373,16 @@ function Products() {
 
               {/* Right */}
               <div>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-6"
+                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-7"
                   style={{ color: "var(--text-dim)" }}>
                   What's included
                 </p>
-                <div className="space-y-0">
+                <div className="rounded-[24px]" style={{ border: "1px solid var(--border)", overflow: "hidden" }}>
                   {p.features.map(f => (
-                    <div key={f} className="flex items-center gap-4 py-4"
+                    <div key={f} className="flex items-start gap-4 px-6 py-5"
                       style={{ borderBottom: "1px solid var(--border)" }}>
-                      <CheckCircle2 size={16} className="flex-shrink-0" style={{ color: "var(--accent)" }} />
-                      <span className="text-sm" style={{ color: "var(--text-muted)" }}>{f}</span>
+                      <CheckCircle2 size={16} className="flex-shrink-0 mt-0.5" style={{ color: "var(--accent)" }} />
+                      <span className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{f}</span>
                     </div>
                   ))}
                 </div>
@@ -402,13 +407,13 @@ function Solutions() {
   const [active, setActive] = useState(0);
   const r = roles[active];
   return (
-    <section id="solutions" aria-label="Solutions" className="py-32 md:py-40"
+    <section id="solutions" aria-label="Solutions" className="py-[var(--section-space)]"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-5xl mx-auto px-8 md:px-14">
+      <div className="section-shell">
         <Reveal>
-          <div className="mb-16">
+          <div className="section-header">
             <Label>Built for Decision-Makers</Label>
-            <h2 className="text-4xl md:text-5xl font-space font-bold mb-5">
+            <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
               Find your <span className="gradient-text">use case</span>
             </h2>
             <p className="text-lg max-w-lg" style={{ color: "var(--text-muted)" }}>
@@ -417,10 +422,10 @@ function Solutions() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {roles.map((role, i) => (
             <button key={role.role} onClick={() => setActive(i)}
-              className="p-6 md:p-8 rounded-2xl text-left transition-all"
+              className="p-6 md:p-8 rounded-[24px] text-left transition-all"
               style={{
                 background: active === i ? "rgba(212,149,106,0.08)" : "var(--surface)",
                 border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "var(--border)"}`,
@@ -434,29 +439,34 @@ function Solutions() {
         <AnimatePresence mode="wait">
           <motion.div key={active}
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }}
-            className="card-lg p-10 md:p-16">
+            className="card-lg"
+            style={{ padding: "var(--card-pad-lg)" }}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
-              <div>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>The Problem</p>
-                <p className="text-xl leading-relaxed mb-10" style={{ color: "var(--text)" }}>"{r.problem}"</p>
-                <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>Our Solution</p>
-                <p className="leading-relaxed" style={{ color: "var(--text-muted)" }}>{r.solution}</p>
+              <div className="stack-lg">
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>The Problem</p>
+                  <p className="text-xl leading-relaxed" style={{ color: "var(--text)" }}>"{r.problem}"</p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>Our Solution</p>
+                  <p className="leading-relaxed" style={{ color: "var(--text-muted)" }}>{r.solution}</p>
+                </div>
               </div>
               <div>
                 <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-6" style={{ color: "var(--text-dim)" }}>Recommended Products</p>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {r.recs.map(name => {
                     const prod = products.find(p => p.name === name)!;
                     return (
-                      <div key={name} className="flex items-center gap-4 p-5 md:p-6 rounded-2xl transition-all card-hover"
+                      <div key={name} className="flex items-center gap-4 p-6 md:p-7 rounded-[24px] transition-all card-hover"
                         style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}>
-                        <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                           style={{ background: "rgba(212,149,106,0.1)" }}>
                           <prod.icon size={17} style={{ color: "var(--accent)" }} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="text-sm font-semibold" style={{ color: "var(--text)" }}>{prod.name}</div>
-                          <div className="text-xs truncate" style={{ color: "var(--text-dim)" }}>{prod.tagline}</div>
+                          <div className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>{prod.name}</div>
+                          <div className="text-xs leading-relaxed" style={{ color: "var(--text-dim)" }}>{prod.tagline}</div>
                         </div>
                         <ChevronRight size={14} style={{ color: "var(--text-dim)" }} />
                       </div>
@@ -501,13 +511,13 @@ const cases = [
 
 function CaseStudies() {
   return (
-    <section id="work" aria-label="Case studies" className="py-32 md:py-40"
+    <section id="work" aria-label="Case studies" className="py-[var(--section-space)]"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-5xl mx-auto px-8 md:px-14">
+      <div className="section-shell">
         <Reveal>
-          <div className="mb-16">
+          <div className="section-header">
             <Label>Proof of Work</Label>
-            <h2 className="text-4xl md:text-5xl font-space font-bold mb-5">
+            <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
               Real clients. <span className="gradient-text">Real numbers.</span>
             </h2>
             <p className="text-lg max-w-lg" style={{ color: "var(--text-muted)" }}>
@@ -519,24 +529,25 @@ function CaseStudies() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
           {cases.map((c, i) => (
             <Reveal key={c.company} delay={i * 0.08}>
-              <article className="card p-10 md:p-12 flex flex-col h-full card-hover hover-lift">
-                <div className="flex items-center justify-between mb-6">
+              <article className="card flex flex-col h-full card-hover hover-lift"
+                style={{ padding: "var(--card-pad)" }}>
+                <div className="flex items-center justify-between mb-7">
                   <span className="text-xs font-semibold px-3 py-1.5 rounded-full"
                     style={{ background: "var(--surface-2)", color: "var(--text-muted)", border: "1px solid var(--border)" }}>
                     {c.industry}
                   </span>
                   <ArrowUpRight size={14} style={{ color: "var(--text-dim)" }} />
                 </div>
-                <h3 className="text-lg font-space font-bold mb-6" style={{ color: "var(--text)" }}>{c.company}</h3>
-                <div className="mb-5">
+                <h3 className="text-lg font-space font-bold mb-7" style={{ color: "var(--text)" }}>{c.company}</h3>
+                <div className="mb-6">
                   <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3" style={{ color: "var(--text-dim)" }}>Challenge</p>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{c.challenge}</p>
                 </div>
-                <div className="mb-8 flex-1">
+                <div className="mb-10 flex-1">
                   <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3" style={{ color: "var(--text-dim)" }}>Solution</p>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{c.solution}</p>
                 </div>
-                <div className="grid grid-cols-3 gap-3 pt-6" style={{ borderTop: "1px solid var(--border)" }}>
+                <div className="grid grid-cols-3 gap-4 pt-7" style={{ borderTop: "1px solid var(--border)" }}>
                   {c.results.map(res => (
                     <div key={res.label} className="text-center">
                       <div className="text-xl font-space font-black mb-1" style={{ color: "var(--accent)" }}>{res.metric}</div>
@@ -547,6 +558,74 @@ function CaseStudies() {
               </article>
             </Reveal>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── About ────────────────────────────────────────────────────────────────────
+const processSteps = [
+  {
+    step: "01", title: "Diagnose",
+    desc: "We start with a deep-dive into your operations. No generic playbooks — we map your exact bottlenecks, data flows, and ROI opportunities before touching a line of code.",
+  },
+  {
+    step: "02", title: "Build",
+    desc: "Our team ships production-ready AI systems in weeks, not quarters. Built on OpenClaw — our proprietary agent framework engineered for enterprise reliability.",
+  },
+  {
+    step: "03", title: "Scale",
+    desc: "Every system we build compounds. We monitor, improve, and expand your AI capabilities as your business grows — so the ROI keeps climbing.",
+  },
+];
+
+function About() {
+  return (
+    <section id="about" aria-label="About" className="py-[var(--section-space)]"
+      style={{ borderTop: "1px solid var(--border)" }}>
+      <div className="section-shell">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-start">
+          <Reveal>
+            <Label>About Impression Labz</Label>
+            <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
+              We're the AI team <span className="gradient-text">you don't have.</span>
+            </h2>
+            <p className="text-lg leading-relaxed mb-6" style={{ color: "var(--text-muted)" }}>
+              Impression Labz is a California-based AI solutions firm. We embed inside businesses as their dedicated AI engineering team — designing, building, and running production AI systems that deliver measurable results.
+            </p>
+            <p className="leading-relaxed mb-10" style={{ color: "var(--text-muted)" }}>
+              Our work is powered by OpenClaw — a battle-tested agent framework built for enterprise reliability. We've shipped 40+ production AI systems across e-commerce, legal tech, logistics, and enterprise operations.
+            </p>
+            <div className="flex flex-wrap items-center gap-5">
+              <a href="mailto:theo@impressionlabz.com"
+                className="flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent)]"
+                style={{ color: "var(--text-muted)" }}>
+                <Mail size={14} /> theo@impressionlabz.com
+              </a>
+              <span style={{ color: "var(--border)" }}>·</span>
+              <a href="https://github.com/theo-impressionlabz" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm transition-colors hover:text-[var(--accent)]"
+                style={{ color: "var(--text-muted)" }}>
+                <Github size={14} /> GitHub
+              </a>
+            </div>
+          </Reveal>
+
+          <div className="space-y-4">
+            {processSteps.map((p, i) => (
+              <Reveal key={p.step} delay={i * 0.1}>
+                <div className="card card-hover" style={{ padding: "var(--card-pad)" }}>
+                  <div className="text-xs font-bold tracking-widest mb-4"
+                    style={{ color: "var(--accent)", opacity: 0.55 }}>
+                    {p.step}
+                  </div>
+                  <h3 className="font-space font-bold text-xl mb-4" style={{ color: "var(--text)" }}>{p.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>{p.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -602,13 +681,13 @@ const plans = [
 
 function Pricing() {
   return (
-    <section id="pricing" aria-label="Pricing" className="py-32 md:py-40"
+    <section id="pricing" aria-label="Pricing" className="py-[var(--section-space)]"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-5xl mx-auto px-8 md:px-14">
+      <div className="section-shell">
         <Reveal>
-          <div className="mb-16">
+          <div className="section-header">
             <Label>Transparent Pricing</Label>
-            <h2 className="text-4xl md:text-5xl font-space font-bold mb-5">
+            <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
               Start small. <span className="gradient-text">Scale fast.</span>
             </h2>
             <p className="text-lg max-w-lg" style={{ color: "var(--text-muted)" }}>
@@ -625,7 +704,7 @@ function Pricing() {
                   background: plan.highlight ? "#1a1612" : "var(--surface)",
                   border: `1px solid ${plan.highlight ? "rgba(212,149,106,0.35)" : "var(--border)"}`,
                   borderRadius: "24px",
-                  padding: "clamp(32px, 5vw, 48px)",
+                  padding: "var(--card-pad-lg)",
                 }}>
                 {plan.highlight && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-xs font-semibold"
@@ -644,7 +723,7 @@ function Pricing() {
                   <p className="leading-relaxed text-sm" style={{ color: "var(--text-muted)" }}>{plan.desc}</p>
                 </div>
 
-                <div className="space-y-4 flex-1 mb-10">
+                <div className="space-y-5 flex-1 mb-10">
                   {plan.includes.map(f => (
                     <div key={f} className="flex items-start gap-3">
                       <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0" style={{ color: "var(--accent)" }} />
@@ -696,13 +775,13 @@ function GetStarted() {
   };
 
   return (
-    <section id="get-started" aria-label="Get started" className="py-32 md:py-40"
+    <section id="get-started" aria-label="Get started" className="py-[var(--section-space)]"
       style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-xl mx-auto px-8 md:px-12">
+      <div className="max-w-2xl mx-auto px-6 md:px-10">
         <Reveal>
-          <div className="mb-14">
+          <div className="section-header">
             <Label>Let's Build Together</Label>
-            <h2 className="text-4xl md:text-5xl font-space font-bold mb-5">
+            <h2 className="text-4xl md:text-5xl font-space font-bold mb-6">
               Start your <span className="gradient-text">AI journey</span>
             </h2>
             <p className="text-lg leading-relaxed" style={{ color: "var(--text-muted)" }}>
@@ -712,7 +791,7 @@ function GetStarted() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="card-lg p-10 md:p-16">
+          <div className="card-lg" style={{ padding: "var(--card-pad-lg)" }}>
             {submitted ? (
               <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
                 <div className="text-5xl mb-6">🤖</div>
@@ -723,7 +802,7 @@ function GetStarted() {
               </motion.div>
             ) : step < formSteps.length ? (
               <div>
-                <div className="flex gap-2 mb-10">
+                <div className="flex gap-3 mb-12">
                   {formSteps.map((_, i) => (
                     <div key={i} className="flex-1 h-0.5 rounded-full transition-all duration-500"
                       style={{ background: i <= step ? "var(--accent)" : "var(--border)" }} />
@@ -731,16 +810,16 @@ function GetStarted() {
                 </div>
                 <AnimatePresence mode="wait">
                   <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                    <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-3" style={{ color: "var(--text-dim)" }}>
+                    <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-4" style={{ color: "var(--text-dim)" }}>
                       Step {step + 1} of {formSteps.length}
                     </p>
-                    <h3 className="font-space font-bold text-2xl mb-8" style={{ color: "var(--text)" }}>
+                    <h3 className="font-space font-bold text-2xl mb-10" style={{ color: "var(--text)" }}>
                       {formSteps[step].title}
                     </h3>
-                    <div className="space-y-2.5">
+                    <div className="space-y-3">
                       {formSteps[step].options.map(opt => (
                         <button key={opt} onClick={() => handleSelect(opt)}
-                          className="w-full text-left px-5 py-4 rounded-2xl text-sm transition-all"
+                          className="w-full text-left px-6 py-4 rounded-2xl text-sm leading-relaxed transition-all"
                           style={{
                             background: answers[formSteps[step].key] === opt ? "rgba(212,149,106,0.08)" : "var(--surface-2)",
                             border: `1px solid ${answers[formSteps[step].key] === opt ? "rgba(212,149,106,0.4)" : "var(--border)"}`,
@@ -761,19 +840,19 @@ function GetStarted() {
               </div>
             ) : (
               <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                <div className="flex gap-2 mb-10">
+                <div className="flex gap-3 mb-12">
                   {formSteps.map((_, i) => <div key={i} className="flex-1 h-0.5 rounded-full" style={{ background: "var(--accent)" }} />)}
                 </div>
                 <h3 className="font-space font-bold text-2xl mb-2" style={{ color: "var(--text)" }}>Almost there.</h3>
-                <p className="mb-8 text-sm" style={{ color: "var(--text-muted)" }}>Where should we send your custom AI roadmap?</p>
-                <form onSubmit={e => { e.preventDefault(); setSubmitted(true); }} className="space-y-3">
+                <p className="mb-10 text-sm" style={{ color: "var(--text-muted)" }}>Where should we send your custom AI roadmap?</p>
+                <form onSubmit={e => { e.preventDefault(); setSubmitted(true); }} className="space-y-4">
                   {[
                     { key: "name", placeholder: "Your full name", type: "text" },
                     { key: "company", placeholder: "Company name", type: "text" },
                     { key: "email", placeholder: "Work email", type: "email" },
                   ].map(f => (
                     <input key={f.key} type={f.type} required placeholder={f.placeholder}
-                      className="w-full px-5 py-4 rounded-2xl text-sm transition-colors outline-none"
+                      className="w-full px-6 py-4 rounded-2xl text-sm transition-colors outline-none"
                       style={{
                         background: "var(--surface-2)",
                         border: "1px solid var(--border)",
@@ -821,7 +900,7 @@ function GetStarted() {
 function Footer() {
   return (
     <footer role="contentinfo" className="pt-20 pb-12" style={{ borderTop: "1px solid var(--border)" }}>
-      <div className="max-w-5xl mx-auto px-8 md:px-14">
+      <div className="section-shell">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16 mb-16">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-5">
@@ -877,6 +956,7 @@ export default function Home() {
       <Products />
       <Solutions />
       <CaseStudies />
+      <About />
       <TrustBar />
       <Pricing />
       <GetStarted />

@@ -10,6 +10,10 @@
   --text-dim: #4a4742;
   --accent: #d4956a;
   --accent-hover: #e0a87c;
+  --section-space: clamp(7rem, 10vw, 10rem);
+  --container-pad: clamp(1.5rem, 4vw, 3.5rem);
+  --card-pad: clamp(1.5rem, 3vw, 2.5rem);
+  --card-pad-lg: clamp(2rem, 4vw, 4rem);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,6 +28,10 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.75;
   font-size: 16px;
+}
+
+section {
+  scroll-margin-top: 7rem;
 }
 
 h1, h2, h3, h4, h5 {
@@ -46,6 +54,25 @@ p { line-height: 1.8; color: var(--text-muted); }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 28px;
+}
+
+.section-shell {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
+}
+
+.section-header {
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.stack-md > * + * {
+  margin-top: 1rem;
+}
+
+.stack-lg > * + * {
+  margin-top: 1.5rem;
 }
 
 /* Subtle inner glow on card hover */
@@ -104,4 +131,23 @@ p { line-height: 1.8; color: var(--text-muted); }
 .divider {
   height: 1px;
   background: var(--border);
+}
+
+/* Input placeholder */
+::placeholder {
+  color: var(--text-dim);
+  opacity: 1;
+}
+
+/* Input focus */
+input:focus,
+textarea:focus {
+  border-color: rgba(212, 149, 106, 0.4) !important;
+  box-shadow: 0 0 0 3px rgba(212, 149, 106, 0.06);
+}
+
+/* Subtle dot grid for backgrounds */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
