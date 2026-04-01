@@ -6,7 +6,8 @@ import {
   Bot, Zap, BarChart3, ArrowRight, Github, Mail,
   ChevronDown, CheckCircle2, Menu, X, ExternalLink,
   Clock, TrendingUp, Shield, Star, ChevronRight,
-  Database, Globe, Play, Calendar, Users, ArrowUpRight
+  Database, Globe, Play, Calendar, Users, ArrowUpRight,
+  Briefcase, Cpu, Settings2
 } from "lucide-react";
 
 // ─── Utils ────────────────────────────────────────────────────────────────────
@@ -73,7 +74,7 @@ function Nav() {
         paddingTop: scrolled ? "14px" : "20px",
         paddingBottom: scrolled ? "14px" : "20px",
       }}>
-      <div className="max-w-5xl mx-auto px-8 md:px-14 flex items-center justify-between">
+      <div className="section-shell flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
             style={{ background: "var(--accent)", color: "#0e0e0e" }}>
@@ -94,12 +95,12 @@ function Nav() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <a href="#get-started" className="text-sm px-4 py-2 transition-colors"
+          <a href="#get-started" className="text-sm px-6 py-3 transition-colors"
             style={{ color: "var(--text-muted)" }}>
             Get Started
           </a>
           <a href="#get-started"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
+            className="flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
             style={{ background: "var(--accent)", color: "#0e0e0e" }}>
             Book a Demo
           </a>
@@ -159,7 +160,7 @@ function Hero() {
 
         {/* Badge */}
         <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-medium mb-10"
+          className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-xs font-medium mb-10"
           style={{ background: "var(--surface-2)", border: "1px solid var(--border)", color: "var(--text-muted)" }}>
           <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--accent)" }} />
           California's AI solutions firm · Built on OpenClaw
@@ -197,10 +198,8 @@ function Hero() {
             Book a Free Strategy Call
           </a>
           <a href="#products"
-            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all"
-            style={{ border: "1px solid var(--border)", color: "var(--text-muted)" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(212,149,106,0.4)"; (e.currentTarget as HTMLElement).style.color = "var(--text)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--border)"; (e.currentTarget as HTMLElement).style.color = "var(--text-muted)"; }}>
+            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all hover-ghost-btn"
+            style={{ border: "1px solid var(--border)", color: "var(--text-muted)" }}>
             <Play size={14} /> See Products
           </a>
         </motion.div>
@@ -305,7 +304,7 @@ function Products() {
             style={{ border: "1px solid var(--border)", background: "rgba(255,255,255,0.015)" }}>
             {products.map((prod, i) => (
               <button key={prod.name} onClick={() => setActive(i)}
-                className="flex items-center justify-center md:justify-start gap-2.5 px-4 py-4 md:px-5 md:py-4 text-sm font-medium transition-all relative rounded-2xl"
+                className="flex items-center justify-center md:justify-start gap-2.5 px-4 py-4 md:px-5 md:py-4 text-sm font-medium transition-all relative rounded-2xl md:flex-1"
                 style={{
                   color: active === i ? "var(--text)" : "var(--text-muted)",
                   background: active === i ? "rgba(212,149,106,0.08)" : "transparent",
@@ -377,7 +376,7 @@ function Products() {
                   style={{ color: "var(--text-dim)" }}>
                   What's included
                 </p>
-                <div className="rounded-[24px]" style={{ border: "1px solid var(--border)", overflow: "hidden" }}>
+                <div className="feature-list rounded-[24px]" style={{ border: "1px solid var(--border)", overflow: "hidden" }}>
                   {p.features.map(f => (
                     <div key={f} className="flex items-start gap-4 px-6 py-5"
                       style={{ borderBottom: "1px solid var(--border)" }}>
@@ -397,10 +396,10 @@ function Products() {
 
 // ─── Solutions ────────────────────────────────────────────────────────────────
 const roles = [
-  { role: "CEO / Founder", icon: "👔", problem: "You know AI matters but can't bet 18 months on an internal R&D bet.", solution: "We deliver a working AI system in 6 weeks with measurable ROI. If it doesn't pay for itself, we don't stop until it does.", recs: ["AgentOS", "InsightPulse"] },
-  { role: "CTO / VP Engineering", icon: "🧠", problem: "Your engineers are too busy maintaining existing systems to build AI.", solution: "We plug in as your AI engineering team. You get OpenClaw-powered agents without burning your existing team's capacity.", recs: ["AgentOS", "DataMind", "AutoFlow"] },
-  { role: "COO / Operations", icon: "⚙️", problem: "Your operations are held together with spreadsheets and manual handoffs.", solution: "AutoFlow maps your most painful workflows and hands them to AI agents that run 24/7 without error.", recs: ["AutoFlow", "AgentOS"] },
-  { role: "VP Sales / Marketing", icon: "📈", problem: "Your team spends 60% of their time on admin instead of selling.", solution: "AI agents handle lead research, follow-ups, reporting, and content so your humans only do the work humans should do.", recs: ["DataMind", "InsightPulse"] },
+  { role: "CEO / Founder", icon: Briefcase, problem: "You know AI matters but can't bet 18 months on an internal R&D bet.", solution: "We deliver a working AI system in 6 weeks with measurable ROI. If it doesn't pay for itself, we don't stop until it does.", recs: ["AgentOS", "InsightPulse"] },
+  { role: "CTO / VP Engineering", icon: Cpu, problem: "Your engineers are too busy maintaining existing systems to build AI.", solution: "We plug in as your AI engineering team. You get OpenClaw-powered agents without burning your existing team's capacity.", recs: ["AgentOS", "DataMind", "AutoFlow"] },
+  { role: "COO / Operations", icon: Settings2, problem: "Your operations are held together with spreadsheets and manual handoffs.", solution: "AutoFlow maps your most painful workflows and hands them to AI agents that run 24/7 without error.", recs: ["AutoFlow", "AgentOS"] },
+  { role: "VP Sales / Marketing", icon: TrendingUp, problem: "Your team spends 60% of their time on admin instead of selling.", solution: "AI agents handle lead research, follow-ups, reporting, and content so your humans only do the work humans should do.", recs: ["DataMind", "InsightPulse"] },
 ];
 
 function Solutions() {
