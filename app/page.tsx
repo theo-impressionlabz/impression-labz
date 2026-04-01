@@ -145,7 +145,7 @@ const metrics = [
 function Hero() {
   return (
     <section aria-label="Hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      className="relative min-h-screen flex items-start justify-center overflow-hidden">
 
       {/* Dot grid texture */}
       <div className="absolute inset-0 pointer-events-none dot-grid" style={{ opacity: 0.6 }} />
@@ -155,7 +155,7 @@ function Hero() {
           background: "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,149,106,0.07) 0%, transparent 70%)"
         }} />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-8 md:px-14 text-center pt-36 pb-24">
+      <div className="relative z-10 max-w-4xl mx-auto px-8 md:px-14 text-center pt-[18vh] pb-24">
 
         {/* Badge */}
         <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
