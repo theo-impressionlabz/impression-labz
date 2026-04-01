@@ -6,7 +6,7 @@ import {
   Bot, Zap, BarChart3, ArrowRight, Github, Mail,
   ChevronDown, CheckCircle2, Menu, X, ExternalLink,
   Clock, TrendingUp, Shield, Star, ChevronRight,
-  Database, Globe, Play, Calendar, Users, ArrowUpRight,
+  Database, Globe, Play, Users, ArrowUpRight,
   Briefcase, Cpu, Settings2
 } from "lucide-react";
 
@@ -100,7 +100,7 @@ function Nav() {
             Get Started
           </a>
           <a href="#get-started"
-            className="flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
+            className="flex items-center gap-2 px-7 py-3.5 rounded-full text-base font-semibold transition-all hover:opacity-90"
             style={{ background: "var(--accent)", color: "#0e0e0e" }}>
             Book a Demo
           </a>
@@ -124,7 +124,7 @@ function Nav() {
                 onClick={() => setOpen(false)}>{item}</a>
             ))}
             <a href="#get-started"
-              className="mt-2 text-center py-3 rounded-full font-semibold text-sm"
+              className="mt-2 text-center py-4 rounded-full font-semibold text-base"
               style={{ background: "var(--accent)", color: "#0e0e0e" }}>
               Book a Demo
             </a>
@@ -304,7 +304,7 @@ function Products() {
             style={{ border: "1px solid var(--border)", background: "rgba(255,255,255,0.015)" }}>
             {products.map((prod, i) => (
               <button key={prod.name} onClick={() => setActive(i)}
-                className="flex items-center justify-center md:justify-start gap-2.5 px-4 py-4 md:px-5 md:py-4 text-sm font-medium transition-all relative rounded-2xl md:flex-1"
+                className="flex items-center justify-center md:justify-start gap-2.5 px-6 py-4 md:px-7 md:py-4 text-base font-medium transition-all relative rounded-2xl md:flex-1"
                 style={{
                   color: active === i ? "var(--text)" : "var(--text-muted)",
                   background: active === i ? "rgba(212,149,106,0.08)" : "transparent",
@@ -429,7 +429,10 @@ function Solutions() {
                 background: active === i ? "rgba(212,149,106,0.08)" : "var(--surface)",
                 border: `1px solid ${active === i ? "rgba(212,149,106,0.3)" : "var(--border)"}`,
               }}>
-              <div className="text-2xl mb-3">{role.icon}</div>
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{ background: active === i ? "rgba(212,149,106,0.14)" : "rgba(255,255,255,0.04)" }}>
+                <role.icon size={18} style={{ color: active === i ? "var(--accent)" : "var(--text-dim)" }} />
+              </div>
               <div className="text-sm font-semibold leading-snug" style={{ color: active === i ? "var(--text)" : "var(--text-muted)" }}>{role.role}</div>
             </button>
           ))}
@@ -473,7 +476,7 @@ function Solutions() {
                   })}
                 </div>
                 <a href="#get-started"
-                  className="mt-8 w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-sm transition-all hover:opacity-90"
+                  className="mt-8 w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-base transition-all hover:opacity-90"
                   style={{ background: "var(--accent)", color: "#0e0e0e" }}>
                   Get a Custom Plan <ArrowRight size={14} />
                 </a>
@@ -695,9 +698,9 @@ function Pricing() {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 md:items-stretch">
           {plans.map((plan, i) => (
-            <Reveal key={plan.name} delay={i * 0.08}>
+            <Reveal key={plan.name} delay={i * 0.08} className="h-full">
               <div className="flex flex-col h-full relative"
                 style={{
                   background: plan.highlight ? "#1a1612" : "var(--surface)",
@@ -732,7 +735,7 @@ function Pricing() {
                 </div>
 
                 <a href="#get-started"
-                  className="w-full py-4 rounded-2xl font-semibold text-center text-sm block transition-all hover:opacity-90"
+                  className="w-full py-4 rounded-2xl font-semibold text-center text-base block transition-all hover:opacity-90"
                   style={plan.highlight
                     ? { background: "var(--accent)", color: "#0e0e0e" }
                     : { border: "1px solid var(--border)", color: "var(--text-muted)" }}>
@@ -818,7 +821,7 @@ function GetStarted() {
                     <div className="space-y-3">
                       {formSteps[step].options.map(opt => (
                         <button key={opt} onClick={() => handleSelect(opt)}
-                          className="w-full text-left px-6 py-4 rounded-2xl text-sm leading-relaxed transition-all"
+                          className="w-full text-left px-8 py-4 rounded-2xl text-base leading-relaxed transition-all"
                           style={{
                             background: answers[formSteps[step].key] === opt ? "rgba(212,149,106,0.08)" : "var(--surface-2)",
                             border: `1px solid ${answers[formSteps[step].key] === opt ? "rgba(212,149,106,0.4)" : "var(--border)"}`,
@@ -861,9 +864,9 @@ function GetStarted() {
                       onChange={e => setContact(prev => ({ ...prev, [f.key]: e.target.value }))} />
                   ))}
                   <button type="submit"
-                    className="w-full py-4 rounded-2xl font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:opacity-90 mt-2"
+                    className="w-full py-4 rounded-2xl font-semibold text-base flex items-center justify-center gap-2 transition-all hover:opacity-90 mt-2"
                     style={{ background: "var(--accent)", color: "#0e0e0e" }}>
-                    Book My Strategy Call <Calendar size={15} />
+                    Book My Strategy Call
                   </button>
                   <p className="text-xs text-center pt-1" style={{ color: "var(--text-dim)" }}>
                     No spam. No pressure. Just an honest conversation.
@@ -914,7 +917,7 @@ function Footer() {
             <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-dim)" }}>
               Where human intelligence meets machine precision.
             </p>
-            <p className="text-xs" style={{ color: "var(--text-dim)" }}>California, USA 🌴</p>
+            <p className="text-xs" style={{ color: "var(--text-dim)" }}>California, USA</p>
           </div>
           {[
             { label: "Products", items: products.map(p => [p.name, "#products"]) },
@@ -938,7 +941,7 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-8 text-xs"
           style={{ borderTop: "1px solid var(--border)", color: "var(--text-dim)" }}>
           <span>© {new Date().getFullYear()} Impression Labz. All rights reserved.</span>
-          <span>Built with OpenClaw 🦞 · California, USA</span>
+          <span>Built with OpenClaw · California, USA</span>
         </div>
       </div>
     </footer>
