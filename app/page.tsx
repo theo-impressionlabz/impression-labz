@@ -101,7 +101,7 @@ function Nav() {
           <a href="#get-started"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
             style={{ background: "var(--accent)", color: "#0e0e0e" }}>
-            Book a Demo <Calendar size={13} />
+            Book a Demo
           </a>
         </div>
 
@@ -194,7 +194,7 @@ function Hero() {
           <a href="#get-started"
             className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-105"
             style={{ background: "var(--accent)", color: "#0e0e0e" }}>
-            Book a Free Strategy Call <Calendar size={16} />
+            Book a Free Strategy Call
           </a>
           <a href="#products"
             className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all"
