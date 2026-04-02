@@ -151,3 +151,14 @@ textarea:focus {
   background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: 28px 28px;
 }
+
+/* Ghost button hover — avoids inline event handler flicker */
+.hover-ghost-btn:hover {
+  border-color: rgba(212, 149, 106, 0.4) !important;
+  color: var(--text) !important;
+}
+
+/* Strip bottom border from last item in feature lists */
+.feature-list > *:last-child {
+  border-bottom: none !important;
+}

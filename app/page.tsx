@@ -146,7 +146,7 @@ const metrics = [
 function Hero() {
   return (
     <section aria-label="Hero"
-      className="relative min-h-screen flex items-start justify-center overflow-hidden">
+      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
 
       {/* Dot grid texture */}
       <div className="absolute inset-0 pointer-events-none dot-grid" style={{ opacity: 0.6 }} />
@@ -193,7 +193,7 @@ function Hero() {
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
           className="flex items-center justify-center gap-4 flex-wrap mb-24">
           <a href="#get-started"
-            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-105"
+            className="flex items-center gap-2.5 px-8 py-4 rounded-full font-semibold text-base transition-all hover:opacity-90 hover:scale-105 whitespace-nowrap"
             style={{ background: "var(--accent)", color: "#0e0e0e" }}>
             Book a Free Strategy Call
           </a>
