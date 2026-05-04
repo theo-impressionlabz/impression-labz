@@ -6,7 +6,7 @@ import {
   Bot, Zap, BarChart3, ArrowRight, Github, Mail,
   ChevronDown, CheckCircle2, Menu, X, ExternalLink,
   Clock, TrendingUp, Shield, Star, ChevronRight,
-  Database, Globe, Play, Users, ArrowUpRight,
+  Database, Globe, Play, Users, Linkedin,
   Briefcase, Cpu, Settings2
 } from "lucide-react";
 
@@ -240,7 +240,7 @@ function PainBanner() {
       <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         className="flex gap-16 whitespace-nowrap">
         {[...pains, ...pains].map((p, i) => (
-          <span key={i} className="text-sm flex items-center gap-3" style={{ color: "var(--text-dim)" }}>
+          <span key={i} className="text-sm flex items-center gap-3" style={{ color: "var(--text-muted)" }}>
             <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
             {p}
           </span>
@@ -533,12 +533,11 @@ function CaseStudies() {
             <Reveal key={c.company} delay={i * 0.08}>
               <article className="card flex flex-col h-full card-hover hover-lift"
                 style={{ padding: "var(--card-pad)" }}>
-                <div className="flex items-center justify-between mb-7">
+                <div className="mb-7">
                   <span className="text-xs font-semibold px-3 py-1.5 rounded-full"
                     style={{ background: "var(--surface-2)", color: "var(--text-muted)", border: "1px solid var(--border)" }}>
                     {c.industry}
                   </span>
-                  <ArrowUpRight size={14} style={{ color: "var(--text-dim)" }} />
                 </div>
                 <h3 className="text-lg font-space font-bold mb-7" style={{ color: "var(--text)" }}>{c.company}</h3>
                 <div className="mb-6">
@@ -770,10 +769,26 @@ function GetStarted() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [contact, setContact] = useState({ name: "", email: "", company: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSelect = (val: string) => {
     setAnswers(prev => ({ ...prev, [formSteps[step].key]: val }));
     if (step < formSteps.length - 1) setTimeout(() => setStep(s => s + 1), 280);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...contact, answers }),
+      });
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   };
 
   return (
@@ -847,7 +862,7 @@ function GetStarted() {
                 </div>
                 <h3 className="font-space font-bold text-2xl mb-2" style={{ color: "var(--text)" }}>Almost there.</h3>
                 <p className="mb-10 text-sm" style={{ color: "var(--text-muted)" }}>Where should we send your custom AI roadmap?</p>
-                <form onSubmit={e => { e.preventDefault(); setSubmitted(true); }} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   {[
                     { key: "name", placeholder: "Your full name", type: "text" },
                     { key: "company", placeholder: "Company name", type: "text" },
@@ -863,10 +878,10 @@ function GetStarted() {
                       value={contact[f.key as keyof typeof contact]}
                       onChange={e => setContact(prev => ({ ...prev, [f.key]: e.target.value }))} />
                   ))}
-                  <button type="submit"
+                  <button type="submit" disabled={loading}
                     className="w-full py-4 rounded-2xl font-semibold text-base flex items-center justify-center gap-2 transition-all hover:opacity-90 mt-2"
-                    style={{ background: "var(--accent)", color: "#0e0e0e" }}>
-                    Book My Strategy Call
+                    style={{ background: "var(--accent)", color: "#0e0e0e", opacity: loading ? 0.7 : 1 }}>
+                    {loading ? "Sending…" : "Book My Strategy Call"}
                   </button>
                   <p className="text-xs text-center pt-1" style={{ color: "var(--text-dim)" }}>
                     No spam. No pressure. Just an honest conversation.
@@ -882,7 +897,7 @@ function GetStarted() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="flex items-center justify-center gap-8 mt-10 text-sm" style={{ color: "var(--text-dim)" }}>
+          <div className="flex items-center justify-center gap-8 mt-10 text-sm flex-wrap" style={{ color: "var(--text-dim)" }}>
             <a href="mailto:theo@impressionlabz.com"
               className="flex items-center gap-2 transition-colors hover:text-[var(--accent)]">
               <Mail size={14} /> theo@impressionlabz.com
@@ -890,6 +905,10 @@ function GetStarted() {
             <a href="https://github.com/theo-impressionlabz" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-2 transition-colors hover:text-[var(--accent)]">
               <Github size={14} /> GitHub
+            </a>
+            <a href="https://linkedin.com/company/impressionlabz" target="_blank" rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-colors hover:text-[var(--accent)]">
+              <Linkedin size={14} /> LinkedIn
             </a>
           </div>
         </Reveal>
@@ -922,7 +941,7 @@ function Footer() {
           {[
             { label: "Products", items: products.map(p => [p.name, "#products"]) },
             { label: "Solutions", items: roles.map(r => [r.role, "#solutions"]) },
-            { label: "Company", items: [["Pricing", "#pricing"], ["Case Studies", "#work"], ["GitHub", "https://github.com/theo-impressionlabz"], ["Email", "mailto:theo@impressionlabz.com"], ["llms.txt", "/llms.txt"]] },
+            { label: "Company", items: [["Pricing", "#pricing"], ["Case Studies", "#work"], ["LinkedIn", "https://linkedin.com/company/impressionlabz"], ["GitHub", "https://github.com/theo-impressionlabz"], ["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"]] },
           ].map(col => (
             <div key={col.label}>
               <p className="text-xs font-semibold tracking-[0.15em] uppercase mb-5" style={{ color: "var(--text-dim)" }}>{col.label}</p>
